@@ -39,7 +39,7 @@
 
 (defgroup ace-isearch nil
   "Group of ace-isearch."
-  :group 'isearch)
+  :group 'ace-jump)
 
 (defcustom ace-isearch-lighter " IACE"
   "Lighter of ace-isearch-mode."
@@ -60,6 +60,12 @@
   "Sub-mode for ace-jump-mode."
   :type '(choice (const :tag "Use ace-jump-word-mode." ace-jump-word-mode)
                  (const :tag "Use ace-jump-char-mode." ace-jump-char-mode))
+  :group 'ace-isearch)
+
+(defcustom ace-isearch-use-swoop t
+  "When non-nil, invoke `helm-swoop' if the length of `isearch-string'
+is longer than or equal to `ace-isearch-input-for-swoop'."
+  :type 'boolean
   :group 'ace-isearch)
 
 (defvar ace-isearch--submode-list
@@ -111,10 +117,12 @@
         ((and (>= (length isearch-string) ace-isearch-input-for-swoop)
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
-         (cond ((not (featurep 'migemo))
+         (cond ((and (not (featurep 'migemo))
+                     ace-isearch-use-swoop)
                 (helm-swoop :$query isearch-string))
                ((and (featurep 'migemo)
-                     (not migemo-isearch-enable-p))
+                     (not migemo-isearch-enable-p)
+                     ace-isearch-use-swoop)
                 (helm-swoop :$query isearch-string))))))
 
 ;;;###autoload
