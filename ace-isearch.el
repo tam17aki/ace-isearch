@@ -84,8 +84,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :global     nil
   :lighter    ace-isearch-mode-lighter
   (if ace-isearch-mode
-      (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-func nil t)
-    (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-func t)))
+      (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-function nil t)
+    (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-function t)))
 
 (defun ace-isearch--turn-on ()
   (unless (minibufferp)
@@ -102,22 +102,14 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (let ((submode (completing-read
                   (format "Sub-mode (current is %s): " ace-isearch-submode)
                   ace-isearch--submode-list nil t)))
-    (cond ((equal submode "ace-jump-word-mode")
-           (setq ace-isearch-submode 'ace-jump-word-mode))
-          ((equal submode "ace-jump-char-mode")
-           (setq ace-isearch-submode 'ace-jump-char-mode))
-          (t (error "Invalid jump type.")))
+    (setq ace-isearch-submode (intern-soft submode))
     (message "Sub-mode of ace-isearch is set to %s." submode)))
 
-(defun ace-isearch--jumper-func ()
+(defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
-         (cond ((eq ace-isearch-submode 'ace-jump-word-mode)
-                (ace-jump-word-mode (string-to-char isearch-string)))
-               ((eq ace-isearch-submode 'ace-jump-char-mode)
-                (ace-jump-char-mode (string-to-char isearch-string)))
-               (t (error "Invalid jump type."))))
+         (funcall ace-isearch-submode (string-to-char isearch-string)))
         ((and (>= (length isearch-string) ace-isearch-input-length)
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
