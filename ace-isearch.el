@@ -5,7 +5,7 @@
 ;; Author: Akira Tamamori
 ;; URL: https://github.com/tam17aki/ace-isearch-mode
 ;; Created: Sep 25 2014
-;; Package-Requires: ((ace-jump-mode "2.0") (helm-swoop "1.4"))
+;; Package-Requires: ((ace-jump-mode "2.0") (helm "1.4"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -30,11 +30,9 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (defvar migemo-isearch-enable-p)
-  (defvar helm-swoop-last-prefix-number 0))
+(eval-when-compile (defvar migemo-isearch-enable-p))
 
-(require 'helm-swoop)
+(require 'helm)
 (require 'ace-jump-mode)
 
 (defgroup ace-isearch nil
@@ -47,12 +45,12 @@
   :group 'ace-isearch)
 
 (defcustom ace-isearch-input-idle-delay 0.4
-  "Idle second before activation of ace-jump or helm-swoop."
+  "Idle second before invoking `ace-isearch-function-from-iserach'."
   :type 'number
   :group 'ace-isearch)
 
-(defcustom ace-isearch-input-for-swoop 6
-  "Minimum input length to activate helm-swoop."
+(defcustom ace-isearch-input-length 6
+  "Minimum input length to invoke `ace-isearch-function-from-isearch'."
   :type 'integer
   :group 'ace-isearch)
 
@@ -62,9 +60,15 @@
                  (const :tag "Use ace-jump-char-mode." ace-jump-char-mode))
   :group 'ace-isearch)
 
-(defcustom ace-isearch-use-swoop t
-  "When non-nil, invoke `helm-swoop' if the length of `isearch-string'
-is longer than or equal to `ace-isearch-input-for-swoop'."
+(defcustom ace-isearch-funtion-from-isearch 'helm-occur-from-isearch
+  "A function which is invoked when the length of `isearch-string'
+is longer than or equal to `ace-isearch-input-length'."
+  :type 'symbol
+  :group 'ace-isearch)
+
+(defcustom ace-isearch-use-function-from-isearch t
+  "When non-nil, invoke `ace-isearch-funtion-from-isearch' if the length
+of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :type 'boolean
   :group 'ace-isearch)
 
@@ -114,16 +118,16 @@ is longer than or equal to `ace-isearch-input-for-swoop'."
                ((eq ace-isearch-submode 'ace-jump-char-mode)
                 (ace-jump-char-mode (string-to-char isearch-string)))
                (t (error "Invalid jump type."))))
-        ((and (>= (length isearch-string) ace-isearch-input-for-swoop)
+        ((and (>= (length isearch-string) ace-isearch-input-length)
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
          (cond ((and (not (featurep 'migemo))
-                     ace-isearch-use-swoop)
-                (helm-swoop :$query isearch-string))
+                     ace-isearch-use-function-from-isearch)
+                (funcall ace-isearch-funtion-from-isearch))
                ((and (featurep 'migemo)
                      (not migemo-isearch-enable-p)
-                     ace-isearch-use-swoop)
-                (helm-swoop :$query isearch-string))))))
+                     ace-isearch-use-function-from-isearch)
+                (funcall ace-isearch-funtion-from-isearch))))))
 
 ;;;###autoload
 (defun ace-isearch-word-from-isearch ()
