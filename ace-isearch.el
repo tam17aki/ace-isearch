@@ -121,20 +121,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                      ace-isearch-use-function-from-isearch)
                 (funcall ace-isearch-funtion-from-isearch))))))
 
-;;;###autoload
-(defun ace-isearch-word-from-isearch ()
-  "Invoke ace-jump-word-mode from isearch."
-  (interactive)
-  (isearch-exit)
-  (ace-jump-word-mode (string-to-char isearch-string)))
-
-;;;###autoload
-(defun ace-isearch-char-from-isearch ()
-  "Invoke ace-jump-char-mode from isearch."
-  (interactive)
-  (isearch-exit)
-  (ace-jump-char-mode (string-to-char isearch-string)))
-
 (provide 'ace-isearch)
 
 ;;; ace-isearch.el ends here
