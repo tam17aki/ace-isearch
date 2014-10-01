@@ -122,5 +122,4 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                 (funcall ace-isearch-funtion-from-isearch))))))
 
 (provide 'ace-isearch)
-
 ;;; ace-isearch.el ends here
