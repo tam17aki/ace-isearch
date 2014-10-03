@@ -133,8 +133,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
       (let ((ace-jump-mode-scope 'window))
         (ace-jump-do (regexp-quote isearch-string)))))
 
-;;;###autoload
-(defun ace-isearch--set-ace-jump-after-isearch-exit (activate)
+(defun ace-isearch-set-ace-jump-after-isearch-exit (activate)
   "Set invoking ace-jump-mode automatically when `isearch-exit' has done."
   (if activate
       (ad-enable-advice 'isearch-exit 'after 'do-ace-isearch-jump)
@@ -147,10 +146,10 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   "Toggle invoking ace-jump-mode automatically when `isearch-exit' has done."
   (interactive)
   (cond ((eq ace-isearch--active-when-isearch-exit-p t)
-         (ace-isearch--set-ace-jump-after-isearch-exit nil)
+         (ace-isearch-set-ace-jump-after-isearch-exit nil)
          (message "ace-jump-after-isearch-exit is disabled."))
         ((eq ace-isearch--active-when-isearch-exit-p nil)
-         (ace-isearch--set-ace-jump-after-isearch-exit t)
+         (ace-isearch-set-ace-jump-after-isearch-exit t)
          (message "ace-jump-after-isearch-exit is enabled."))))
 
 (provide 'ace-isearch)
