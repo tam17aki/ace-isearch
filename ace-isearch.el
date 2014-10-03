@@ -133,7 +133,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
 ;;;###autoload
 (defun ace-isearch--set-ace-jump-after-isearch-exit (activate)
-  "Toggle invoking ace-jump-mode automatically when `isearch-exit' has done."
+  "Set invoking ace-jump-mode automatically when `isearch-exit' has done."
   (if activate
       (ad-enable-advice 'isearch-exit 'after 'do-ace-isearch-jump)
     (ad-disable-advice 'isearch-exit 'after 'do-ace-isearch-jump))
