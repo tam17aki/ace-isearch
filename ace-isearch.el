@@ -77,26 +77,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   "List of jump type for ace-jump-mode.")
 
 ;;;###autoload
-(define-minor-mode ace-isearch-mode
-  "Minor-mode which connects isearch and ace-jump-mode seamlessly."
-  :group      'ace-isearch
-  :init-value nil
-  :global     nil
-  :lighter    ace-isearch-mode-lighter
-  (if ace-isearch-mode
-      (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-function nil t)
-    (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-function t)))
-
-(defun ace-isearch--turn-on ()
-  (unless (minibufferp)
-    (ace-isearch-mode +1)))
-
-;;;###autoload
-(define-globalized-minor-mode global-ace-isearch-mode
-  ace-isearch-mode ace-isearch--turn-on
-  :group 'ace-isearch)
-
-;;;###autoload
 (defun ace-isearch-switch-submode ()
   (interactive)
   (let ((submode (completing-read
@@ -120,6 +100,56 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                      (not migemo-isearch-enable-p)
                      ace-isearch-use-function-from-isearch)
                 (funcall ace-isearch-funtion-from-isearch))))))
+
+;;;###autoload
+(define-minor-mode ace-isearch-mode
+  "Minor-mode which connects isearch and ace-jump-mode seamlessly."
+  :group      'ace-isearch
+  :init-value nil
+  :global     nil
+  :lighter    ace-isearch-mode-lighter
+  (if ace-isearch-mode
+      (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-function nil t)
+    (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-function t)))
+
+(defun ace-isearch--turn-on ()
+  (unless (minibufferp)
+    (ace-isearch-mode +1)))
+
+;;;###autoload
+(define-globalized-minor-mode global-ace-isearch-mode
+  ace-isearch-mode ace-isearch--turn-on
+  :group 'ace-isearch)
+
+;; misc
+(defvar ace-isearch--active-when-isearch-exit-p nil)
+
+(defadvice isearch-exit (after do-ace-isearch-jump disable)
+  (when (and ace-isearch--active-when-isearch-exit-p
+             (> (length isearch-string) 1)
+             (< (length isearch-string) ace-isearch-input-length))
+    (let ((ace-jump-mode-scope 'visible))
+      (ace-jump-do (regexp-quote isearch-string)))))
+
+;;;###autoload
+(defun ace-isearch--set-ace-jump-after-isearch-exit (activate)
+  "Toggle invoking ace-jump-mode automatically when `isearch-exit' has done."
+  (if activate
+      (ad-enable-advice 'isearch-exit 'after 'do-ace-isearch-jump)
+    (ad-disable-advice 'isearch-exit 'after 'do-ace-isearch-jump))
+  (ad-activate 'isearch-exit)
+  (setq ace-isearch--active-when-isearch-exit-p activate))
+
+;;;###autoload
+(defun ace-isearch-toggle-ace-jump-after-isearch-exit ()
+  "Toggle invoking ace-jump-mode automatically when `isearch-exit' has done."
+  (interactive)
+  (cond ((eq ace-isearch--active-when-isearch-exit-p t)
+         (ace-isearch--set-ace-jump-after-isearch-exit nil)
+         (message "ace-jump-after-isearch-exit is disabled."))
+        ((eq ace-isearch--active-when-isearch-exit-p nil)
+         (ace-isearch--set-ace-jump-after-isearch-exit t)
+         (message "ace-jump-after-isearch-exit is enabled."))))
 
 (provide 'ace-isearch)
 ;;; ace-isearch.el ends here
