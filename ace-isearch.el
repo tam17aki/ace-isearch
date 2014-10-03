@@ -22,6 +22,8 @@
 
 ;;; Commentary:
 
+;;; Installation:
+;;
 ;; To use this package, add following code to your init file.
 ;;
 ;;   (require 'ace-isearch)
@@ -128,7 +130,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (if (and ace-isearch--active-when-isearch-exit-p
            (> (length isearch-string) 1)
            (< (length isearch-string) ace-isearch-input-length))
-      (let ((ace-jump-mode-scope 'visible))
+      (let ((ace-jump-mode-scope 'window))
         (ace-jump-do (regexp-quote isearch-string)))))
 
 ;;;###autoload
