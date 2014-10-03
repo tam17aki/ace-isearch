@@ -125,11 +125,11 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (defvar ace-isearch--active-when-isearch-exit-p nil)
 
 (defadvice isearch-exit (after do-ace-isearch-jump disable)
-  (when (and ace-isearch--active-when-isearch-exit-p
-             (> (length isearch-string) 1)
-             (< (length isearch-string) ace-isearch-input-length))
-    (let ((ace-jump-mode-scope 'visible))
-      (ace-jump-do (regexp-quote isearch-string)))))
+  (if (and ace-isearch--active-when-isearch-exit-p
+           (> (length isearch-string) 1)
+           (< (length isearch-string) ace-isearch-input-length))
+      (let ((ace-jump-mode-scope 'visible))
+        (ace-jump-do (regexp-quote isearch-string)))))
 
 ;;;###autoload
 (defun ace-isearch--set-ace-jump-after-isearch-exit (activate)
