@@ -118,12 +118,11 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
          (if (not (fboundp ace-isearch-funtion-from-isearch))
              (error (format "%s is not bounded!"
                             ace-isearch-funtion-from-isearch)))
-         (isearch-exit)
-         (cond ((not (featurep 'migemo))
-                (funcall ace-isearch-funtion-from-isearch))
-               ((and (featurep 'migemo)
-                     (not migemo-isearch-enable-p))
-                (funcall ace-isearch-funtion-from-isearch))))))
+         (when (or (not (featurep 'migemo))
+                   (and (featurep 'migemo)
+                        (not migemo-isearch-enable-p)))
+           (isearch-exit)
+           (funcall ace-isearch-funtion-from-isearch)))))
 
 ;;;###autoload
 (define-minor-mode ace-isearch-mode
