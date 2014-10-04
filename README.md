@@ -66,7 +66,7 @@ If [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop) has been intalled,
 If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable as `nil`.
 
 #### `ace-isearch-set-ace-jump-after-isearch-exit`
-This functionality is an optional.
+This functionality is optional.
 `ace-jump-mode` will be invoked further using the isearch query after exiting isearch.
 
 You can enable this as follows:
