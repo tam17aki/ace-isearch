@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 by Akira TAMAMORI
 
 ;; Author: Akira Tamamori
-;; URL: https://github.com/tam17aki/ace-isearch-mode
+;; URL: https://github.com/tam17aki/ace-isearch
 ;; Version: 0.1
 ;; Created: Sep 25 2014
 ;; Package-Requires: ((ace-jump-mode "2.0") (helm "1.4"))
