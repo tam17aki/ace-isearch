@@ -75,6 +75,12 @@
                  (const :tag "Use ace-jump-char-mode." ace-jump-char-mode))
   :group 'ace-isearch)
 
+(defcustom ace-isearch-use-ace-jump t
+  "When non-nil, invoke `ace-jump' if the length of `isearch-string' is equal
+to 1."
+  :type 'boolean
+  :group 'ace-isearch)
+
 (defcustom ace-isearch-funtion-from-isearch 'helm-occur-from-isearch
   "A function which is invoked when the length of `isearch-string'
 is longer than or equal to `ace-isearch-input-length'."
@@ -102,6 +108,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
+              ace-isearch-use-ace-jump
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
          (funcall ace-isearch-submode (string-to-char isearch-string)))
