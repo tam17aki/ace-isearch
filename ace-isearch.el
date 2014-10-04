@@ -98,7 +98,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (list "ace-jump-word-mode" "ace-jump-char-mode")
   "List of jump type for ace-jump-mode.")
 
-;;;###autoload
 (defun ace-isearch-switch-submode ()
   (interactive)
   (let ((submode (completing-read
