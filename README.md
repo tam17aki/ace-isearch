@@ -1,4 +1,4 @@
-ace-isearch
+ace-isearch.el
 ===========
 
 ## Introduction
