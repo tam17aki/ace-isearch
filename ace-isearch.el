@@ -111,6 +111,11 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (or (not (featurep 'migemo))
       (and (featurep 'migemo) (not migemo-isearch-enable-p))))
 
+(defun ace-isearch--function-from-isearch-fboundp ()
+  (not (unless (fboundp ace-isearch-funtion-from-isearch)
+         (error (format "%s is not bounded!"
+                        ace-isearch-funtion-from-isearch)))))
+
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
               ace-isearch-use-ace-jump
@@ -120,9 +125,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
         ((and (>= (length isearch-string) ace-isearch-input-length)
               ace-isearch-use-function-from-isearch
               (ace-isearch--migemo-isearch-enable-p)
-              (not (unless (fboundp ace-isearch-funtion-from-isearch)
-                     (error (format "%s is not bounded!"
-                                    ace-isearch-funtion-from-isearch))))
+              (ace-isearch--function-from-isearch-fboundp)
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
          (funcall ace-isearch-funtion-from-isearch))))
