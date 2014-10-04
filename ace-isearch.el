@@ -106,6 +106,10 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
     (setq ace-isearch-submode (intern-soft submode))
     (message "Sub-mode of ace-isearch is set to %s." submode)))
 
+(defun ace-isearch--migemo-isearch-enable-p ()
+  (or (not (featurep 'migemo))
+      (and (featurep 'migemo) (not migemo-isearch-enable-p))))
+
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
               ace-isearch-use-ace-jump
@@ -114,15 +118,13 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
          (funcall ace-isearch-submode (string-to-char isearch-string)))
         ((and (>= (length isearch-string) ace-isearch-input-length)
               ace-isearch-use-function-from-isearch
+              (ace-isearch--migemo-isearch-enable-p)
               (sit-for ace-isearch-input-idle-delay))
          (if (not (fboundp ace-isearch-funtion-from-isearch))
              (error (format "%s is not bounded!"
                             ace-isearch-funtion-from-isearch)))
-         (when (or (not (featurep 'migemo))
-                   (and (featurep 'migemo)
-                        (not migemo-isearch-enable-p)))
-           (isearch-exit)
-           (funcall ace-isearch-funtion-from-isearch)))))
+         (isearch-exit)
+         (funcall ace-isearch-funtion-from-isearch))))
 
 ;;;###autoload
 (define-minor-mode ace-isearch-mode
