@@ -32,7 +32,7 @@
 ;;
 ;; where L is the input string length during `isearch'.  When L is 1, after a
 ;; few seconds specified by `ace-isearch-input-idle-delay', `ace-jump-mode' will
-v;; be invoked. Of course you can customize the above behaviour.
+;; be invoked. Of course you can customize the above behaviour.
 
 ;;; Installation:
 ;;
