@@ -54,7 +54,7 @@
   "Group of ace-isearch."
   :group 'ace-jump)
 
-(defcustom ace-isearch-lighter " IACE"
+(defcustom ace-isearch-lighter " AceI"
   "Lighter of ace-isearch-mode."
   :type 'string
   :group 'ace-isearch)
