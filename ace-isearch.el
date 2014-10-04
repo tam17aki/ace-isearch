@@ -24,7 +24,9 @@
 ;;; Commentary:
 ;;
 ;; `ace-isearch.el' provides a minor mode which combines `isearch' and
-;; `ace-jump-mode'. The "default" behavior can be summrized as:
+;; `ace-jump-mode'.
+;;
+;; The "default" behavior can be summrized as:
 ;;
 ;; L = 1     : `ace-jump-mode'
 ;; 1 < L < 6 : `isearch'
