@@ -6,7 +6,7 @@
 ;; URL: https://github.com/tam17aki/ace-isearch
 ;; Version: 0.1
 ;; Created: Sep 25 2014
-;; Package-Requires: ((ace-jump-mode "2.0") (helm "1.4"))
+;; Package-Requires: ((ace-jump-mode "2.0") (helm "1.4") (emacs "24"))
 
 ;; This program is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free Software
