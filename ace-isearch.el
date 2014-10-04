@@ -95,6 +95,9 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
         ((and (>= (length isearch-string) ace-isearch-input-length)
               ace-isearch-use-function-from-isearch
               (sit-for ace-isearch-input-idle-delay))
+         (if (not (fboundp ace-isearch-funtion-from-isearch))
+             (error (format "%s is not bounded!"
+                            ace-isearch-funtion-from-isearch)))
          (isearch-exit)
          (cond ((not (featurep 'migemo))
                 (funcall ace-isearch-funtion-from-isearch))
