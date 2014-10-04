@@ -1,4 +1,57 @@
 ace-isearch
 ===========
 
-A seamless bridge between isearch and ace-jump-mode.
+## Introduction
+`ace-isearch.el` provides a minor mode which combines `isearch` and [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode).
+
+## Requirements
+
+* Emacs 24 or higher
+* [helm](https://github.com/emacs-helm/helm)
+
+## Basic Usage
+
+### `ace-isearch-mode`
+
+Enable `ace-isearch` minor mode:
+
+```lisp
+(ace-isearch-mode +1)
+```
+
+### `global-ace-isearch-mode`
+
+Enable global ace-isearch mode:
+
+```lisp
+(global-ace-isearch-mode +1)
+```
+
+## Customization
+
+### `ace-isearch-submode` (Default:`ace-jump-word-mode`)
+Specify the function name as `ace-jump-word-mode` or `ace-jump-char-mode` utilzed in invoking `ace-jump-mode`.
+You can change this value by `ace-isearch-switch-submode` interactively.
+
+### `ace-isearch-use-ace-jump` (Default:`t`)
+If this variable is set to `nil`, `ace-jump-mode` is never invoked.
+
+### `ace-isearch-input-idle-delay` (Default：`0.4`)
+Delay seconds for invoking `ace-jump-mode` after inputting 1 character in isearch.
+
+### `ace-isearch-input-length` (Default：`6`)
+As default behaviour, when the string length during isearch exceeds `ace-isearch-input-length`, 
+the function specified by `ace-isearch-funtion-from-isearch` will be invoked.
+
+### `ace-isearch-function-from-isearch` (Default:`helm-occur-from-isearch`)
+Specify the function name invoked when the string length during isearch exceeds `ace-isearch-input-length`.
+If [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop) has been intalled, helm-swoop can be invoked after isearch:
+
+```el
+(setq ace-isearch-funtion-from-isearch 'helm-swoop-from-isearch)
+```
+
+### `ace-isearch-use-function-from-isearch` (Default:`t`)
+If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable as `nil`.
+
+### `ace-isearch-set-ace-jump-after-isearch-exit`
