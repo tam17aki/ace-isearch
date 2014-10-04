@@ -93,14 +93,13 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
          (isearch-exit)
          (funcall ace-isearch-submode (string-to-char isearch-string)))
         ((and (>= (length isearch-string) ace-isearch-input-length)
+              ace-isearch-use-function-from-isearch
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
-         (cond ((and (not (featurep 'migemo))
-                     ace-isearch-use-function-from-isearch)
+         (cond ((not (featurep 'migemo))
                 (funcall ace-isearch-funtion-from-isearch))
                ((and (featurep 'migemo)
-                     (not migemo-isearch-enable-p)
-                     ace-isearch-use-function-from-isearch)
+                     (not migemo-isearch-enable-p))
                 (funcall ace-isearch-funtion-from-isearch))))))
 
 ;;;###autoload
