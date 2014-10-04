@@ -74,3 +74,6 @@ You can enable this as follows:
 ```el
 (ace-isearch-set-ace-jump-after-isearch-exit t)
 ```
+
+### `ace-isearch-toggle-ace-jump-after-isearch-exit`
+Toggle the functionality described above.
