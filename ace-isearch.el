@@ -1,9 +1,10 @@
 ;;; ace-isearch.el --- A seamless bridge between isearch and ace-jump-mode -*- coding: utf-8; lexical-binding: t -*-
 
-;; Copyright (C) 2014 by Akira Tamamori
+;; Copyright (C) 2014 by Akira TAMAMORI
 
 ;; Author: Akira Tamamori
 ;; URL: https://github.com/tam17aki/ace-isearch-mode
+;; Version: 0.1
 ;; Created: Sep 25 2014
 ;; Package-Requires: ((ace-jump-mode "2.0") (helm "1.4"))
 
@@ -21,6 +22,19 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+;;
+;; `ace-isearch.el' provides a minor mode which combines `isearch' and
+;; `ace-jump-mode' seamlessly.
+;;
+;; The "default" behavior described in the above can be summrized as:
+;;
+;; L = 1     : `ace-jump-mode'
+;; 1 < L < 6 : `isearch'
+;; L > 6     : `helm-occur-from-isearch'
+;;
+;; where L is the input string length during `isearch'.  When L is 1, after a
+;; few seconds specified by `ace-isearch-input-idle-delay', `ace-jump-mode' will
+;; be invoked. Of course you can customize the above behaviour.
 
 ;;; Installation:
 ;;
@@ -28,7 +42,6 @@
 ;;
 ;;   (require 'ace-isearch)
 ;;   (global-ace-isearch-mode +1)
-;;
 
 ;;; Code:
 
