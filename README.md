@@ -17,6 +17,7 @@ be invoked. Of course you can customize the above behaviour.
 ## Requirements
 
 * Emacs 24 or higher
+* [ace-jump-mode](https://github.com/winterTTr/ace-jump-mode)
 * [helm](https://github.com/emacs-helm/helm)
 
 ## Basic Usage
