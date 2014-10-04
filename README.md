@@ -48,7 +48,7 @@ You can change this value by `ace-isearch-switch-submode` interactively.
 If this variable is set to `nil`, `ace-jump-mode` is never invoked.
 
 #### `ace-isearch-input-idle-delay` (Default：`0.4`)
-Delay seconds for invoking `ace-jump-mode` during isearch.
+Delay seconds for invoking `ace-jump-mode` or `ace-isearch-function-from-isearch` described below during isearch.
 
 #### `ace-isearch-input-length` (Default：`6`)
 As default behaviour, when the string length during isearch exceeds `ace-isearch-input-length`, 
