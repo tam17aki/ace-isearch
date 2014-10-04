@@ -76,8 +76,8 @@
   :group 'ace-isearch)
 
 (defcustom ace-isearch-use-ace-jump t
-  "When non-nil, invoke `ace-jump' if the length of `isearch-string' is equal
-to 1."
+  "When non-nil, invoke `ace-jump-mode' if the length of `isearch-string' is
+equal to 1."
   :type 'boolean
   :group 'ace-isearch)
 
