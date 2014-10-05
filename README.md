@@ -7,7 +7,7 @@ ace-isearch.el
 The "default" behavior can be summrized as:
 - L = 1     : `ace-jump-mode`
 - 1 < L < 6 : `isearch`
-- L >= 6    : `helm-occur-from-isearch`
+- L >= 6    : `helm-swoop-from-isearch`
 
 where L is the input string length during `isearch`.  When L is 1, after a
 few seconds specified by `ace-isearch-input-idle-delay`, `ace-jump-mode` will
@@ -18,7 +18,7 @@ be invoked. Of course you can customize the above behaviour.
 
 * Emacs 24 or higher
 * [ace-jump-mode](https://github.com/winterTTr/ace-jump-mode)
-* [helm](https://github.com/emacs-helm/helm)
+* [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop)
 
 ## Basic Usage
 
@@ -54,15 +54,9 @@ Delay seconds for invoking `ace-jump-mode` and `ace-isearch-function-from-isearc
 As default behaviour, when the string length during isearch exceeds `ace-isearch-input-length`, 
 the function specified by `ace-isearch-funtion-from-isearch` will be invoked.
 
-#### `ace-isearch-function-from-isearch` (Default:`helm-occur-from-isearch`)
+#### `ace-isearch-function-from-isearch` (Default:`helm-swoop-from-isearch`)
 Specify the function name invoked when the string length during isearch exceeds `ace-isearch-input-length`.
-If [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop) has been installed, helm-swoop can be invoked after isearch:
-
-```el
-(setq ace-isearch-funtion-from-isearch 'helm-swoop-from-isearch)
-```
-
-Otherwise [swoop](https://github.com/ShingoFukuyama/emacs-swoop) has been installed, swoop can be invoked:
+If [swoop](https://github.com/ShingoFukuyama/emacs-swoop) has been installed, swoop can be invoked:
 
 ```el
 (setq ace-isearch-funtion-from-isearch 'swoop-from-isearch)
