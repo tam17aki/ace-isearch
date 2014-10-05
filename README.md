@@ -7,7 +7,7 @@ ace-isearch.el
 The "default" behavior can be summrized as:
 - L = 1     : `ace-jump-mode`
 - 1 < L < 6 : `isearch`
-- L > 6     : `helm-occur-from-isearch`
+- L >= 6    : `helm-occur-from-isearch`
 
 where L is the input string length during `isearch`.  When L is 1, after a
 few seconds specified by `ace-isearch-input-idle-delay`, `ace-jump-mode` will
