@@ -64,6 +64,10 @@ If [swoop](https://github.com/ShingoFukuyama/emacs-swoop) has been installed, sw
 
 Of course you can set this variable to `helm-occur-from-isearch`.
 
+```el
+(setq ace-isearch-funtion-from-isearch 'helm-occur-from-isearch)
+```
+
 #### `ace-isearch-use-function-from-isearch` (Default:`t`)
 If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable to `nil`.
 
