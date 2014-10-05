@@ -41,8 +41,8 @@ Enable global ace-isearch mode:
 ## Customization
 
 #### `ace-isearch-submode` (Default:`ace-jump-word-mode`)
-Specify the function name as `ace-jump-word-mode` or `ace-jump-char-mode` utilzed in invoking `ace-jump-mode`.
-You can change this value by `ace-isearch-switch-submode` interactively.
+Specify the function name as `ace-jump-word-mode` or `ace-jump-char-mode` utilized in invoking `ace-jump-mode`.
+You can change this value by function `ace-isearch-switch-submode` interactively.
 
 #### `ace-isearch-use-ace-jump` (Default:`t`)
 If this variable is set to `nil`, `ace-jump-mode` is never invoked.
