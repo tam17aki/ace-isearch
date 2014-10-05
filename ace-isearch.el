@@ -6,7 +6,7 @@
 ;; URL: https://github.com/tam17aki/ace-isearch
 ;; Version: 0.1
 ;; Created: Sep 25 2014
-;; Package-Requires: ((ace-jump-mode "2.0") (helm "1.4") (emacs "24"))
+;; Package-Requires: ((ace-jump-mode "2.0") (helm-swoop "1.4") (emacs "24"))
 
 ;; This program is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free Software
@@ -45,9 +45,11 @@
 
 ;;; Code:
 
-(eval-when-compile (defvar migemo-isearch-enable-p))
+(eval-when-compile
+  (defvar migemo-isearch-enable-p)
+  (defvar helm-swoop-last-prefix-number 0))
 
-(require 'helm)
+(require 'helm-swoop)
 (require 'ace-jump-mode)
 
 (defgroup ace-isearch nil
@@ -82,7 +84,7 @@ equal to 1."
   :type 'boolean
   :group 'ace-isearch)
 
-(defcustom ace-isearch-funtion-from-isearch 'helm-occur-from-isearch
+(defcustom ace-isearch-funtion-from-isearch 'helm-swoop-from-isearch
   "A function which is invoked when the length of `isearch-string'
 is longer than or equal to `ace-isearch-input-length'."
   :type 'symbol
