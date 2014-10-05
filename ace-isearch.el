@@ -167,7 +167,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (ad-activate 'isearch-exit)
   (setq ace-isearch--active-when-isearch-exit-p activate))
 
-;;;###autoload
 (defun ace-isearch-toggle-ace-jump-after-isearch-exit ()
   "Toggle invoking ace-jump-mode automatically when `isearch-exit' has done."
   (interactive)
