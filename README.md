@@ -56,14 +56,20 @@ the function specified by `ace-isearch-funtion-from-isearch` will be invoked.
 
 #### `ace-isearch-function-from-isearch` (Default:`helm-occur-from-isearch`)
 Specify the function name invoked when the string length during isearch exceeds `ace-isearch-input-length`.
-If [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop) has been intalled, helm-swoop can be invoked after isearch:
+If [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop) has been installed, helm-swoop can be invoked after isearch:
 
 ```el
 (setq ace-isearch-funtion-from-isearch 'helm-swoop-from-isearch)
 ```
 
+Otherwise [swoop](https://github.com/ShingoFukuyama/emacs-swoop) has been installed, swoop can be invoked:
+
+```el
+(setq ace-isearch-funtion-from-isearch 'swoop-from-isearch)
+```
+
 #### `ace-isearch-use-function-from-isearch` (Default:`t`)
-If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable as `nil`.
+If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable to `nil`.
 
 #### `ace-isearch-set-ace-jump-after-isearch-exit`
 This functionality is optional.
