@@ -61,7 +61,7 @@
 
 (defcustom ace-isearch-input-idle-delay 0.4
   "Delay seconds for invoking `ace-jump-mode' and `ace-isearch-function-from-isearch'
-described below during isearch."
+during isearch."
   :type 'number
   :group 'ace-isearch)
 
