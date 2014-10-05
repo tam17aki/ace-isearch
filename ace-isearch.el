@@ -128,6 +128,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               ace-isearch-use-function-from-isearch
               (ace-isearch--check-fboundp ace-isearch-funtion-from-isearch)
               (sit-for ace-isearch-input-idle-delay))
+         (isearch-exit)
          (funcall ace-isearch-funtion-from-isearch))))
 
 ;;;###autoload
