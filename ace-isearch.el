@@ -113,8 +113,10 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
       (and (featurep 'migemo) (not migemo-isearch-enable-p))))
 
 (defun ace-isearch--check-fboundp (func)
-  (not (unless (fboundp func)
-         (error (format "function %s is not bounded!" func)))))
+  (if (not (eq func nil))
+      (not (unless (fboundp func)
+             (error (format "function %s is not bounded!" func))))
+    nil))
 
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
