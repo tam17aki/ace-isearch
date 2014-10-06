@@ -107,10 +107,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
     (message "Sub-mode of ace-isearch is set to %s." submode)))
 
 (defun ace-isearch--migemo-isearch-enable-p ()
-  (or (not (featurep 'migemo))
-      (and (featurep 'migemo)
-           (not (and (boundp 'migemo-isearch-enable-p)
-                     (symbol-value 'migemo-isearch-enable-p))))))
+  (not (and (featurep 'migemo)
+            (symbol-value 'migemo-isearch-enable-p))))
 
 (defun ace-isearch--fboundp (func flag)
   (when flag
