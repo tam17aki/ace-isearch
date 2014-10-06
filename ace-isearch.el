@@ -45,9 +45,7 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (defvar migemo-isearch-enable-p)
-  (defvar helm-swoop-last-prefix-number 0))
+(eval-when-compile (defvar helm-swoop-last-prefix-number 0))
 
 (require 'helm-swoop)
 (require 'ace-jump-mode)
@@ -110,7 +108,9 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
 (defun ace-isearch--migemo-isearch-enable-p ()
   (or (not (featurep 'migemo))
-      (and (featurep 'migemo) (not migemo-isearch-enable-p))))
+      (and (featurep 'migemo)
+           (not (and (boundp 'migemo-isearch-enable-p)
+                     (symbol-value 'migemo-isearch-enable-p))))))
 
 (defun ace-isearch--fboundp (func flag)
   (when flag
