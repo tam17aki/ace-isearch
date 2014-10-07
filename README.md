@@ -62,6 +62,13 @@ If [swoop](https://github.com/ShingoFukuyama/emacs-swoop) has been installed, sw
 (setq ace-isearch-funtion-from-isearch 'swoop-from-isearch)
 ```
 
+In this case, the following setting would be better.
+
+```el
+(define-key swoop-map (kbd "C-s") 'swoop-action-goto-line-next)
+(define-key swoop-map (kbd "C-r") 'swoop-action-goto-line-prev)
+```
+
 Of course you can set this variable to `helm-occur-from-isearch`.
 
 ```el
