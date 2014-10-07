@@ -51,11 +51,11 @@ If this variable is set to `nil`, `ace-jump-mode` is never invoked.
 Delay seconds for invoking `ace-jump-mode` and `ace-isearch-function-from-isearch` described below during isearch.
 
 #### `ace-isearch-input-length` (Default：`6`)
-As default behaviour, when the string length during isearch exceeds `ace-isearch-input-length`, 
+As default behaviour, when the input string length during isearch exceeds `ace-isearch-input-length`, 
 the function specified by `ace-isearch-funtion-from-isearch` will be invoked.
 
 #### `ace-isearch-function-from-isearch` (Default:`helm-swoop-from-isearch`)
-Specify the function name invoked when the string length during isearch exceeds `ace-isearch-input-length`.
+Specify the function name invoked when the input string length during isearch exceeds `ace-isearch-input-length`.
 If [swoop](https://github.com/ShingoFukuyama/emacs-swoop) has been installed, swoop can be invoked:
 
 ```el
