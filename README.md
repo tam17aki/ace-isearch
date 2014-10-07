@@ -13,6 +13,13 @@ where L is the input string length during `isearch`.  When L is 1, after a
 few seconds specified by `ace-isearch-input-idle-delay`, `ace-jump-mode` will
 be invoked. Of course you can customize the above behaviour.
 
+## Installation
+
+You can install `ace-isearch.el` from [MELPA](http://melpa.milkbox.net/) with `package.el`
+
+```
+ M-x package-install ace-isearch
+```
 
 ## Requirements
 
