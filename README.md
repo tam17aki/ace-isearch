@@ -13,6 +13,12 @@ where L is the input string length during `isearch`.  When L is 1, after a
 few seconds specified by `ace-isearch-input-idle-delay`, `ace-jump-mode` will
 be invoked. Of course you can customize the above behaviour.
 
+## Requirements
+
+* Emacs 24 or higher
+* [ace-jump-mode](https://github.com/winterTTr/ace-jump-mode)
+* [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop)
+
 ## Installation
 
 You can install `ace-isearch.el` from [MELPA](http://melpa.milkbox.net/) with `package.el`
@@ -20,12 +26,6 @@ You can install `ace-isearch.el` from [MELPA](http://melpa.milkbox.net/) with `p
 ```
  M-x package-install ace-isearch
 ```
-
-## Requirements
-
-* Emacs 24 or higher
-* [ace-jump-mode](https://github.com/winterTTr/ace-jump-mode)
-* [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop)
 
 ## Basic Usage
 
