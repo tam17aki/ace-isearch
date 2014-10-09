@@ -110,7 +110,7 @@ Toggle the functionality described above.
 
 For `migemo` user :
 
-It should be noticed that `ace-isearch-function-from-isearch` is never invoked when migemo-isearch is tured on.
+It should be noticed that `ace-isearch-function-from-isearch` is never invoked when migemo-isearch is turned on.
 If you want to invoke `ace-isearch-function-from-isearch`, please turn off migemo-isearch.
 In that case, please try followings:
 
