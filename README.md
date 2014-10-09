@@ -112,7 +112,7 @@ For `migemo` user :
 
 It should be noticed that `ace-isearch-function-from-isearch` is never invoked when migemo-isearch is tured on.
 If you want to invoke `ace-isearch-function-from-isearch`, please turn off migemo-isearch.
-In that case, please try following:
+In that case, please try followings:
 
 ```el
 (setq migemo-isearch-enable-p nil)
