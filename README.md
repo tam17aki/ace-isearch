@@ -82,20 +82,6 @@ Of course you can set this variable to `helm-occur-from-isearch`.
 (setq ace-isearch-funtion-from-isearch 'helm-occur-from-isearch)
 ```
 
-It should be noticed that `ace-isearch-function-from-isearch` is never invoked when migemo-isearch is tured on.
-If you want to invoke `ace-isearch-function-from-isearch`, please turn off migemo-isearch.
-In that case, please try following:
-
-```el
-(setq migemo-isearch-enable-p nil)
-```
-
-Otherwise, you can toggle migemo-isearch by applying the following keybind and pressing `C-e` during isearch:
-
-```
-(define-key isearch-mode-map "\C-e" 'migemo-isearch-toggle-migemo)
-```
-
 #### `ace-isearch-use-function-from-isearch` (Default:`t`)
 If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable to `nil`.
 
@@ -118,3 +104,22 @@ Otherwise you can disable this as follows:
 
 #### `ace-isearch-toggle-ace-jump-after-isearch-exit`
 Toggle the functionality described above.
+
+
+## Notice
+
+For `migemo` user :
+
+It should be noticed that `ace-isearch-function-from-isearch` is never invoked when migemo-isearch is tured on.
+If you want to invoke `ace-isearch-function-from-isearch`, please turn off migemo-isearch.
+In that case, please try following:
+
+```el
+(setq migemo-isearch-enable-p nil)
+```
+
+Otherwise, you can toggle migemo-isearch by applying the following keybind and pressing `C-e` during isearch:
+
+```el
+(define-key isearch-mode-map "\C-e" 'migemo-isearch-toggle-migemo)
+```
