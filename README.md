@@ -118,7 +118,12 @@ In that case, please try following:
 (setq migemo-isearch-enable-p nil)
 ```
 
-Otherwise, you can toggle migemo-isearch by applying the following keybind and pressing `C-e` during isearch:
+or
+```
+M-x migemo-isearch-toggle-migemo
+```
+
+Another option is applying the following keybind and pressing `C-e` during isearch:
 
 ```el
 (define-key isearch-mode-map "\C-e" 'migemo-isearch-toggle-migemo)
