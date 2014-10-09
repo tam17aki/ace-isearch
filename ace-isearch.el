@@ -102,7 +102,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (interactive)
   (let ((submode (completing-read
                   (format "Sub-mode (current is %s): " ace-isearch-submode)
-                  ace-isearch--submode-list nil t)))
+                  ace-isearch--submode-list nil t "ace-jump-")))
     (setq ace-isearch-submode (intern-soft submode))
     (message "Sub-mode of ace-isearch is set to %s." submode)))
 
