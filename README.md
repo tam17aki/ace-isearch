@@ -122,7 +122,7 @@ For a trivial example, you can specify it as follows:
 (setq ace-isearch-fallback-function 'my-fallback-function)
 ```
 
-#### `ace-isearch-use-function-from-isearch`  (Default:`t`)
+#### `ace-isearch-use-function-from-isearch`  (Default:`nil`)
 If this variable is set to non-nil, `ace-isearch-fallback-function` will be invoked
 when isearch fails.
 
