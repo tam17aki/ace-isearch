@@ -107,6 +107,24 @@ Otherwise you can disable this as follows:
 #### `ace-isearch-toggle-ace-jump-after-isearch-exit`
 Toggle the functionality described above.
 
+#### `ace-isearch-fallback-function`  (Default:`helm-swoop-from-isearch`)
+This functionality is optional.
+When isearch fails and `ace-isearch-use-fallback-function` is non-nil,
+`ace-isearch-fallback-function` will be invoked as a fallback function.
+
+You shoud specify the symbol name of function which use `isearch-string`, the query string during isearch.
+For a trivial example, you can specify it as follows:
+
+```el
+(defun my-fallback-function ()
+  (message "Your isearch-string is %s" isearch-string))
+
+(setq ace-isearch-fallback-function 'my-fallback-function)
+```
+
+#### `ace-isearch-use-function-from-isearch`  (Default:`t`)
+If this variable is set to non-nil, `ace-isearch-fallback-function` will be invoked
+when isearch fails.
 
 ## Notice
 
