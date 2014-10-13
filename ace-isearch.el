@@ -94,15 +94,15 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :type 'boolean
   :group 'ace-isearch)
 
-(defcustom ace-isearch-use-fallback-function nil
-  "When non-nil, invoke `ace-isearch-fallback-function' when isearch fails."
-  :type 'boolean
-  :group 'ace-isearch)
-
 (defcustom ace-isearch-fallback-function 'helm-swoop-from-isearch
   "Symbol name of function which is invoked when isearch fails and
 `ace-isearch-use-fallback-function' is non-nil."
   :type 'symbol
+  :group 'ace-isearch)
+
+(defcustom ace-isearch-use-fallback-function nil
+  "When non-nil, invoke `ace-isearch-fallback-function' when isearch fails."
+  :type 'boolean
   :group 'ace-isearch)
 
 (defvar ace-isearch--submode-list
