@@ -27,6 +27,8 @@ You can install `ace-isearch.el` from [MELPA](http://melpa.milkbox.net/) with `p
  M-x package-install ace-isearch
 ```
 
+Otherwise you can install it from [el-get](https://github.com/dimitri/el-get).
+
 ## Basic Usage
 
 #### `ace-isearch-mode`
