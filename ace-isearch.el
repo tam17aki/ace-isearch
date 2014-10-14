@@ -83,7 +83,7 @@ equal to 1."
   :group 'ace-isearch)
 
 (defcustom ace-isearch-funtion-from-isearch 'helm-swoop-from-isearch
-  "A function which is invoked when the length of `isearch-string'
+  "Symbol name of function which is invoked when the length of `isearch-string'
 is longer than or equal to `ace-isearch-input-length'."
   :type 'symbol
   :group 'ace-isearch)
@@ -91,6 +91,17 @@ is longer than or equal to `ace-isearch-input-length'."
 (defcustom ace-isearch-use-function-from-isearch t
   "When non-nil, invoke `ace-isearch-funtion-from-isearch' if the length
 of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
+  :type 'boolean
+  :group 'ace-isearch)
+
+(defcustom ace-isearch-fallback-function 'helm-swoop-from-isearch
+  "Symbol name of function which is invoked when isearch fails and
+`ace-isearch-use-fallback-function' is non-nil."
+  :type 'symbol
+  :group 'ace-isearch)
+
+(defcustom ace-isearch-use-fallback-function nil
+  "When non-nil, invoke `ace-isearch-fallback-function' when isearch fails."
   :type 'boolean
   :group 'ace-isearch)
 
@@ -123,7 +134,21 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (ace-isearch--fboundp ace-isearch-submode ace-isearch-use-ace-jump)
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
-         (funcall ace-isearch-submode (string-to-char isearch-string)))
+         (cond ((and (not isearch-success)
+                     (ace-isearch--fboundp
+                      ace-isearch-fallback-function ace-isearch-use-fallback-function))
+                (funcall ace-isearch-fallback-function))
+               (t
+                (funcall ace-isearch-submode (string-to-char isearch-string)))))
+
+        ((and (> (length isearch-string) 1)
+              (< (length isearch-string) ace-isearch-input-length)
+              (not isearch-success)
+              (sit-for ace-isearch-input-idle-delay))
+         (if (ace-isearch--fboundp
+              ace-isearch-fallback-function ace-isearch-use-fallback-function)
+             (funcall ace-isearch-fallback-function)))
+
         ((and (>= (length isearch-string) ace-isearch-input-length)
               (ace-isearch--migemo-isearch-enable-p)
               (ace-isearch--fboundp
