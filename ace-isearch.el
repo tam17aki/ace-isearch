@@ -66,8 +66,8 @@ during isearch."
   :group 'ace-isearch)
 
 (defcustom ace-isearch-input-length 6
-  "Length of inpunt string required for invoking
-`ace-isearch-function-from-isearch' during isearch."
+  "Length of inpunt string required for invoking `ace-isearch-function-from-isearch'
+during isearch."
   :type 'integer
   :group 'ace-isearch)
 
