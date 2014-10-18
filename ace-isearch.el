@@ -131,12 +131,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (ace-isearch--fboundp ace-isearch-submode ace-isearch-use-ace-jump)
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
-         (cond ((and (not isearch-success)
-                     (ace-isearch--fboundp
-                      ace-isearch-fallback-function ace-isearch-use-fallback-function))
-                (funcall ace-isearch-fallback-function))
-               (t
-                (funcall ace-isearch-submode (string-to-char isearch-string)))))
+         (funcall ace-isearch-submode (string-to-char isearch-string)))
 
         ((and (> (length isearch-string) 1)
               (< (length isearch-string) ace-isearch-input-length)
