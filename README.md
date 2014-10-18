@@ -113,17 +113,15 @@ When isearch fails and `ace-isearch-use-fallback-function` is non-nil,
 `ace-isearch-fallback-function` will be invoked as a fallback function.
 
 You shoud specify the symbol name of function which uses `isearch-string`, the query string during isearch.
-For a useful example, you can specify it as follows:
+For a trivial example, you can specify it as follows:
 
 ```el
 (defun my-fallback-function ()
-  (funcall ace-isearch-submode (string-to-char isearch-string)))
+  (message "Your isearch string is %s", isearch-string))
   
 (setq ace-isearch-use-function-from-isearch t)
 (setq ace-isearch-fallback-function 'my-fallback-function)
 ```
-
-In this example, you can invoke `ace-jump-mode` whenever you put one character in isearch.
 
 #### `ace-isearch-use-function-from-isearch`  (Default:`nil`)
 If this variable is set to non-nil, `ace-isearch-fallback-function` will be invoked
