@@ -118,10 +118,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
     (setq ace-isearch-submode (intern-soft submode))
     (message "Sub-mode of ace-isearch is set to %s." submode)))
 
-(defun ace-isearch--migemo-isearch-enable-p ()
-  (not (and (featurep 'migemo)
-            (symbol-value 'migemo-isearch-enable-p))))
-
 (defun ace-isearch--fboundp (func flag)
   (when flag
     (when (eq func nil)
@@ -151,7 +147,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
              (funcall ace-isearch-fallback-function)))
 
         ((and (>= (length isearch-string) ace-isearch-input-length)
-              (ace-isearch--migemo-isearch-enable-p)
               (ace-isearch--fboundp
                ace-isearch-funtion-from-isearch ace-isearch-use-function-from-isearch)
               (sit-for ace-isearch-input-idle-delay))

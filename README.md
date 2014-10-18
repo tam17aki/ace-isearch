@@ -126,26 +126,3 @@ For a trivial example, you can specify it as follows:
 #### `ace-isearch-use-function-from-isearch`  (Default:`nil`)
 If this variable is set to non-nil, `ace-isearch-fallback-function` will be invoked
 when isearch fails.
-
-## Notice
-
-For `migemo` user :
-
-It should be noticed that `ace-isearch-function-from-isearch` is never invoked when migemo-isearch is turned on.
-If you want to invoke `ace-isearch-function-from-isearch`, please turn off migemo-isearch.
-In that case, please try followings:
-
-```el
-(setq migemo-isearch-enable-p nil)
-```
-
-or
-```
-M-x migemo-isearch-toggle-migemo
-```
-
-Another option is applying the following keybind and pressing `C-e` during isearch:
-
-```el
-(define-key isearch-mode-map "\C-e" 'migemo-isearch-toggle-migemo)
-```
