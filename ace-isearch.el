@@ -59,7 +59,7 @@
   :type 'string
   :group 'ace-isearch)
 
-(defcustom ace-isearch-input-idle-delay 0.4
+(defcustom ace-isearch-input-idle-delay 0.5
   "Delay seconds for invoking `ace-jump-mode' and `ace-isearch-function-from-isearch'
 during isearch."
   :type 'number
