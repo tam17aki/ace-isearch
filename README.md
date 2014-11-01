@@ -1,4 +1,4 @@
-ace-isearch.el
+ace-isearch.el [![MELPA](http://melpa.org/packages/ace-isearch-badge.svg)](http://melpa.org/#/ace-isearch)
 ===========
 
 ## Introduction
