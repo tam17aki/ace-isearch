@@ -21,7 +21,7 @@ be invoked. Of course you can customize the above behaviour.
 
 ## Installation
 
-You can install `ace-isearch.el` from [MELPA](http://melpa.milkbox.net/) with `package.el`
+You can install `ace-isearch.el` from [MELPA](http://melpa.org/#/ace-isearch) with `package.el`
 
 ```
  M-x package-install ace-isearch
