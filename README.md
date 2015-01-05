@@ -56,6 +56,12 @@ You can change this value by function `ace-isearch-switch-submode` interactively
 #### `ace-isearch-use-ace-jump` (Default:`t`)
 If this variable is set to `nil`, `ace-jump-mode` is never invoked.
 
+If set to `t`, it is always invoked if the length of `isearch-string` is equal to 1.
+
+If set to `printing-char`, it is invoked only if you hit a printing character to search for as a first input.
+This prevents it from being invoked when repeating a one character search, yanking a character or calling
+`isearch-delete-char` leaving only one character.
+
 #### `ace-isearch-input-idle-delay` (Default：`0.5`)
 Delay seconds for invoking `ace-jump-mode` and `ace-isearch-function-from-isearch` described below during isearch.
 
