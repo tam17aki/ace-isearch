@@ -78,9 +78,19 @@ during isearch."
   :group 'ace-isearch)
 
 (defcustom ace-isearch-use-ace-jump t
-  "When non-nil, invoke `ace-jump-mode' if the length of `isearch-string' is
-equal to 1."
-  :type 'boolean
+  "If `nil', `ace-jump-mode' is never invoked.
+
+If `t', it is always invoked if the length of `isearch-string' is
+equal to 1.
+
+If `printing-char', it is invoked only if you hit a printing
+character to search for as a first input.  This prevents it from
+being invoked when repeating a one character search, yanking a
+character or calling `isearch-delete-char' leaving only one
+character."
+  :type '(choice (const :tag "Always" t)
+                 (const :tag "Only after a printing character is input" printing-char)
+                 (const :tag "Never" nil))
   :group 'ace-isearch)
 
 (defcustom ace-isearch-funtion-from-isearch 'helm-swoop-from-isearch
@@ -128,7 +138,10 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
-              (ace-isearch--fboundp ace-isearch-submode ace-isearch-use-ace-jump)
+              (ace-isearch--fboundp ace-isearch-submode
+                                    (or (eq ace-isearch-use-ace-jump t)
+                                        (and (eq ace-isearch-use-ace-jump 'printing-char)
+                                             (eq this-command 'isearch-printing-char))))
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
          (funcall ace-isearch-submode (string-to-char isearch-string)))
