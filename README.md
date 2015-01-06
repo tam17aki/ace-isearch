@@ -132,3 +132,17 @@ For a trivial example, you can specify it as follows:
 #### `ace-isearch-use-fallback-function`  (Default:`nil`)
 If this variable is set to non-nil, `ace-isearch-fallback-function` will be invoked
 when isearch fails.
+
+## Sample Configuration
+```el
+(require 'ace-isearch)
+(global-ace-isearch-mode +1)
+
+(custom-set-variables
+ '(ace-isearch-input-length 7)
+ '(ace-isearch-input-idle-delay 0.4)
+ '(ace-isearch-submode 'ace-jump-char-mode)
+ '(ace-isearch-use-ace-jump 'printing-char))
+ 
+(ace-isearch-set-ace-jump-after-isearch-exit t)
+```
