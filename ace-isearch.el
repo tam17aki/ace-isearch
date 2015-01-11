@@ -146,6 +146,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                                              (eq this-command 'isearch-printing-char))))
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
+         (if (region-active-p)
+             (exchange-point-and-mark))
          (funcall ace-isearch-submode (string-to-char isearch-string)))
 
         ((and (> (length isearch-string) 1)
