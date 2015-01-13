@@ -159,6 +159,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
              (funcall ace-isearch-fallback-function)))
 
         ((and (>= (length isearch-string) ace-isearch-input-length)
+              (not isearch-regexp)
               (ace-isearch--fboundp
                ace-isearch-funtion-from-isearch ace-isearch-use-function-from-isearch)
               (sit-for ace-isearch-input-idle-delay))
