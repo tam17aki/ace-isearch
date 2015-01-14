@@ -118,9 +118,6 @@ This functionality is optional.
 When isearch fails and `ace-isearch-use-fallback-function` is non-nil,
 `ace-isearch-fallback-function` will be invoked as a fallback function.
 
-Please notice that this may not be used with `ace-isearch-set-ace-jump-after-isearch-exit` simultaneously.
-Especially when `ace-isearch-fallback-function` is set to `helm-swoop-from-isearch` in which `isearch-exit` is invoked inside, `ace-isearch-set-ace-jump-after-isearch-exit` will suppress the fallback function.
-
 You shoud specify the symbol name of function which uses `isearch-string`, the query string during isearch.
 For a trivial example, you can specify it as follows:
 
@@ -135,6 +132,10 @@ For a trivial example, you can specify it as follows:
 #### `ace-isearch-use-fallback-function`  (Default:`nil`)
 If this variable is set to non-nil, `ace-isearch-fallback-function` will be invoked
 when isearch fails.
+
+## Notice
+`ace-isearch-fallback-function` may not be used with `ace-isearch-set-ace-jump-after-isearch-exit` simultaneously.
+Especially when `ace-isearch-fallback-function` is set to `helm-swoop-from-isearch` in which `isearch-exit` is invoked inside, `ace-isearch-set-ace-jump-after-isearch-exit` will suppress the fallback function.
 
 ## Sample Configuration
 ```el
