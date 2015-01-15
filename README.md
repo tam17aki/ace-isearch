@@ -110,9 +110,6 @@ Otherwise you can disable this as follows:
 (ace-isearch-set-ace-jump-after-isearch-exit nil)
 ```
 
-#### `ace-isearch-toggle-ace-jump-after-isearch-exit`
-Toggle the functionality described above.
-
 #### `ace-isearch-fallback-function`  (Default:`helm-swoop-from-isearch`)
 This functionality is optional.
 When isearch fails and `ace-isearch-use-fallback-function` is non-nil,
