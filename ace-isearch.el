@@ -204,15 +204,5 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (ad-activate 'isearch-exit)
   (setq ace-isearch--active-when-isearch-exit-p activate))
 
-(defun ace-isearch-toggle-ace-jump-after-isearch-exit ()
-  "Toggle invoking ace-jump-mode automatically when `isearch-exit' has done."
-  (interactive)
-  (cond ((eq ace-isearch--active-when-isearch-exit-p t)
-         (ace-isearch-set-ace-jump-after-isearch-exit nil)
-         (message "ace-jump-after-isearch-exit is disabled."))
-        ((eq ace-isearch--active-when-isearch-exit-p nil)
-         (ace-isearch-set-ace-jump-after-isearch-exit t)
-         (message "ace-jump-after-isearch-exit is enabled."))))
-
 (provide 'ace-isearch)
 ;;; ace-isearch.el ends here
