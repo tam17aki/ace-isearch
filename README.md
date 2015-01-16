@@ -134,7 +134,7 @@ when isearch fails.
 
 ## Notice
 `ace-isearch-fallback-function` may not be used with `ace-isearch-set-ace-jump-after-isearch-exit` simultaneously.
-Especially when `ace-isearch-fallback-function` is set to `helm-swoop-from-isearch` in which `isearch-exit` is invoked inside, `ace-isearch-set-ace-jump-after-isearch-exit` will suppress the fallback function.
+Especially when `ace-isearch-fallback-function` is set to `helm-swoop-from-isearch` in which `isearch-exit` is invoked inside, `ace-isearch-set-ace-jump-after-isearch-exit` will prevent the fallback function from being invoked.
 
 ## Sample Configuration
 ```el
