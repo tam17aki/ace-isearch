@@ -4,7 +4,7 @@
 
 ;; Author: Akira Tamamori
 ;; URL: https://github.com/tam17aki/ace-isearch
-;; Version: 0.1.0
+;; Version: 0.1.1
 ;; Created: Sep 25 2014
 ;; Package-Requires: ((ace-jump-mode "2.0") (helm-swoop "1.4") (emacs "24"))
 
