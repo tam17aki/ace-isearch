@@ -136,6 +136,9 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
       (error (format "function %s is not bounded!" func)))
     t))
 
+(defun ace-isearch--pop-mark ()
+  (if (= (length isearch-string) 1) (pop-mark)))
+
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
               (not (or isearch-regexp
@@ -146,8 +149,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                                              (eq this-command 'isearch-printing-char))))
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
-         (if (region-active-p)
-             (exchange-point-and-mark))
          (funcall ace-isearch-submode (string-to-char isearch-string)))
 
         ((and (> (length isearch-string) 1)
@@ -174,8 +175,11 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :global     nil
   :lighter    ace-isearch-mode-lighter
   (if ace-isearch-mode
-      (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-function nil t)
-    (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-function t)))
+      (progn
+        (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-function nil t)
+        (add-hook 'ace-jump-mode-end-hook 'ace-isearch--pop-mark nil t))
+    (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-function t)
+    (remove-hook 'ace-jump-mode-end-hook 'ace-isearch--pop-mark t)))
 
 (defun ace-isearch--turn-on ()
   (unless (minibufferp)
