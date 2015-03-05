@@ -137,9 +137,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
     t))
 
 (defun ace-isearch--pop-mark ()
-  (if (= (length isearch-string) 1)
-      (progn (pop-mark)
-             (message "Mark saved when search started"))))
+  (if (= (length isearch-string) 1) (progn (pop-mark))))
 
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
