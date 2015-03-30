@@ -93,14 +93,14 @@ character."
                  (const :tag "Never" nil))
   :group 'ace-isearch)
 
-(defcustom ace-isearch-funtion-from-isearch 'helm-swoop-from-isearch
+(defcustom ace-isearch-function-from-isearch 'helm-swoop-from-isearch
   "Symbol name of function which is invoked when the length of `isearch-string'
 is longer than or equal to `ace-isearch-input-length'."
   :type 'symbol
   :group 'ace-isearch)
 
 (defcustom ace-isearch-use-function-from-isearch t
-  "When non-nil, invoke `ace-isearch-funtion-from-isearch' if the length
+  "When non-nil, invoke `ace-isearch-function-from-isearch' if the length
 of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :type 'boolean
   :group 'ace-isearch)
@@ -162,10 +162,10 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
         ((and (>= (length isearch-string) ace-isearch-input-length)
               (not isearch-regexp)
               (ace-isearch--fboundp
-               ace-isearch-funtion-from-isearch ace-isearch-use-function-from-isearch)
+               ace-isearch-function-from-isearch ace-isearch-use-function-from-isearch)
               (sit-for ace-isearch-input-idle-delay))
          (isearch-exit)
-         (funcall ace-isearch-funtion-from-isearch))))
+         (funcall ace-isearch-function-from-isearch))))
 
 ;;;###autoload
 (define-minor-mode ace-isearch-mode
