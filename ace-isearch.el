@@ -59,14 +59,18 @@
   :type 'string
   :group 'ace-isearch)
 
-(defcustom ace-isearch-input-idle-delay 0.4
-  "Delay seconds for invoking `ace-jump-mode' and `ace-isearch-function-from-isearch'
-during isearch."
+(defcustom ace-isearch-input-idle-jump-delay 0.4
+  "Delay seconds for invoking `ace-jump-mode' during isearch."
+  :type 'number
+  :group 'ace-isearch)
+
+(defcustom ace-isearch-input-idle-func-delay 0
+  "Delay seconds for invoking `ace-isearch-function-from-isearch' during isearch."
   :type 'number
   :group 'ace-isearch)
 
 (defcustom ace-isearch-input-length 6
-  "Length of inpunt string required for invoking `ace-isearch-function-from-isearch'
+  "Length of input string required for invoking `ace-isearch-function-from-isearch'
 during isearch."
   :type 'integer
   :group 'ace-isearch)
@@ -147,14 +151,14 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                                     (or (eq ace-isearch-use-ace-jump t)
                                         (and (eq ace-isearch-use-ace-jump 'printing-char)
                                              (eq this-command 'isearch-printing-char))))
-              (sit-for ace-isearch-input-idle-delay))
+              (sit-for ace-isearch-input-idle-jump-delay))
          (isearch-exit)
          (funcall ace-isearch-submode (string-to-char isearch-string)))
 
         ((and (> (length isearch-string) 1)
               (< (length isearch-string) ace-isearch-input-length)
               (not isearch-success)
-              (sit-for ace-isearch-input-idle-delay))
+              (sit-for ace-isearch-input-idle-jump-delay))
          (if (ace-isearch--fboundp
               ace-isearch-fallback-function ace-isearch-use-fallback-function)
              (funcall ace-isearch-fallback-function)))
@@ -163,7 +167,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (not isearch-regexp)
               (ace-isearch--fboundp
                ace-isearch-function-from-isearch ace-isearch-use-function-from-isearch)
-              (sit-for ace-isearch-input-idle-delay))
+              (sit-for ace-isearch-input-idle-func-delay))
          (isearch-exit)
          (funcall ace-isearch-function-from-isearch))))
 
