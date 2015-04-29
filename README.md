@@ -64,8 +64,11 @@ If set to `printing-char`, it is invoked only if you hit a printing character to
 This prevents it from being invoked when repeating a one character search, yanking a character or calling
 `isearch-delete-char` leaving only one character.
 
-#### `ace-isearch-input-idle-delay` (Default：`0.4`)
-Delay seconds for invoking `ace-jump-mode` and `ace-isearch-function-from-isearch` described below during isearch.
+#### `ace-isearch-input-idle-jump-delay` (Default：`0.4`)
+Delay seconds for invoking `ace-jump-mode` during isearch.
+
+#### `ace-isearch-input-idle-func-delay` (Default：`0`)
+Delay seconds for invoking `ace-isearch-function-from-isearch` which is described below during isearch.
 
 #### `ace-isearch-input-length` (Default：`6`)
 As default behaviour, when the input string length during isearch exceeds `ace-isearch-input-length`, 
