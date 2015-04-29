@@ -2,7 +2,7 @@ ace-isearch.el [![MELPA](http://melpa.org/packages/ace-isearch-badge.svg)](http:
 ===========
 
 ## Introduction
-`ace-isearch.el` provides a minor mode which combines `isearch` and [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode).
+`ace-isearch.el` provides a minor mode which combines `isearch`,  [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode), and [`helm-swoop`](https://github.com/ShingoFukuyama/helm-swoop).
 
 The "default" behavior can be summrized as:
 - L = 1     : `ace-jump-mode`
