@@ -64,7 +64,7 @@
   :type 'number
   :group 'ace-isearch)
 
-(defcustom ace-isearch-input-idle-func-delay 0
+(defcustom ace-isearch-input-idle-func-delay 0.0
   "Delay seconds for invoking `ace-isearch-function-from-isearch' during isearch."
   :type 'number
   :group 'ace-isearch)
