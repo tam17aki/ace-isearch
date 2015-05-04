@@ -67,8 +67,8 @@ This prevents it from being invoked when repeating a one character search, yanki
 #### `ace-isearch-input-idle-jump-delay` (Default：`0.4`)
 Delay seconds for invoking `ace-jump-mode` during isearch.
 
-#### `ace-isearch-input-idle-func-delay` (Default：`0`)
-Delay seconds for invoking `ace-isearch-function-from-isearch` which is described below during isearch.
+#### `ace-isearch-input-idle-func-delay` (Default：`0.0`)
+Delay seconds for invoking `ace-isearch-function-from-isearch` during isearch, which is described below.
 
 #### `ace-isearch-input-length` (Default：`6`)
 As default behaviour, when the input string length during isearch exceeds `ace-isearch-input-length`, 
