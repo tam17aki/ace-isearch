@@ -103,23 +103,6 @@ Of course you can set this variable to `helm-occur-from-isearch`.
 #### `ace-isearch-use-function-from-isearch` (Default:`t`)
 If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable to `nil`.
 
-#### `ace-isearch-set-ace-jump-after-isearch-exit`
-This functionality is optional.
-`ace-jump-mode` will be invoked further using the isearch query after exiting isearch.
-This helps to reduce many key repeats of `C-s` or `C-r`.
-
-You can enable this as follows:
-
-```el
-(ace-isearch-set-ace-jump-after-isearch-exit t)
-```
-
-Otherwise you can disable this as follows:
-
-```el
-(ace-isearch-set-ace-jump-after-isearch-exit nil)
-```
-
 #### `ace-isearch-fallback-function`  (Default:`helm-swoop-from-isearch`)
 This functionality is optional.
 When isearch fails and `ace-isearch-use-fallback-function` is non-nil,
@@ -139,10 +122,6 @@ For a trivial example, you can specify it as follows:
 #### `ace-isearch-use-fallback-function`  (Default:`nil`)
 If this variable is set to non-nil, `ace-isearch-fallback-function` will be invoked
 when isearch fails.
-
-## Notice
-`ace-isearch-fallback-function` may not be used with `ace-isearch-set-ace-jump-after-isearch-exit` simultaneously.
-Especially when `ace-isearch-fallback-function` is set to `helm-swoop-from-isearch` in which `isearch-exit` is invoked inside, `ace-isearch-set-ace-jump-after-isearch-exit` will prevent the fallback function from being invoked.
 
 ## Sample Configuration
 ```el
