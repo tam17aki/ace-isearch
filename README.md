@@ -123,6 +123,10 @@ For a trivial example, you can specify it as follows:
 If this variable is set to non-nil, `ace-isearch-fallback-function` will be invoked
 when isearch fails.
 
+#### `ace-isearch-jump-during-isearch`
+With this function, `ace-jump-mode` will be invoked further during isearch, which enables to jump to the one of the isearch candidates.
+This helps to reduce many key repeats of `C-s` or `C-r`.
+
 ## Sample Configuration
 ```el
 (require 'ace-isearch)
