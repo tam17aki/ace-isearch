@@ -54,6 +54,8 @@ Enable global ace-isearch mode:
 
 #### `ace-isearch-submode` (Default:`ace-jump-word-mode`)
 Specify the function name utilized in invoking `ace-jump-mode` or `avy`.
+You should specify `ace-jump-word-mode`, `ace-jump-char-mode`, `avy-goto-word-0`, 
+`avy-goto-word-1`, or `avy-goto-char-1`.
 
 #### `ace-isearch-switch-submode`
 You can switch the value of `ace-isearch-submode` interactively.
