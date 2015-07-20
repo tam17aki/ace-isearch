@@ -2,15 +2,17 @@ ace-isearch.el [![MELPA](http://melpa.org/packages/ace-isearch-badge.svg)](http:
 ===========
 
 ## Introduction
-`ace-isearch.el` provides a minor mode which combines `isearch`,  [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode), and [`helm-swoop`](https://github.com/ShingoFukuyama/helm-swoop).
+`ace-isearch.el` provides a minor mode which combines `isearch`,  [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode), 
+[`avy`](https://github.com/abo-abo/avy), and
+[`helm-swoop`](https://github.com/ShingoFukuyama/helm-swoop).
 
 The "default" behavior can be summrized as:
-- L = 1     : `ace-jump-mode`
+- L = 1     : `ace-jump-mode` or `avy`
 - 1 < L < 6 : `isearch`
 - L >= 6    : `helm-swoop-from-isearch`
 
 where L is the input string length during `isearch`.  When L is 1, after a
-few seconds specified by `ace-isearch-input-idle-delay`, `ace-jump-mode` will
+few seconds specified by `ace-isearch-input-idle-delay`, `ace-jump-mode` or `avy` will
 be invoked. Of course you can customize the above behaviour.
 
 ## Requirements
@@ -50,13 +52,13 @@ Enable global ace-isearch mode:
 ## Customization
 
 #### `ace-isearch-submode` (Default:`ace-jump-word-mode`)
-Specify the function name as `ace-jump-word-mode` or `ace-jump-char-mode` utilized in invoking `ace-jump-mode`.
+Specify the function name utilized in invoking `ace-jump-mode` or `avy`.
 
 #### `ace-isearch-switch-submode`
 You can switch the value of `ace-isearch-submode` interactively.
 
 #### `ace-isearch-use-ace-jump` (Default:`t`)
-If this variable is set to `nil`, `ace-jump-mode` is never invoked.
+If this variable is set to `nil`, `ace-jump-mode` or `avy` is never invoked.
 
 If set to `t`, it is always invoked if the length of `isearch-string` is equal to 1.
 
@@ -65,7 +67,7 @@ This prevents it from being invoked when repeating a one character search, yanki
 `isearch-delete-char` leaving only one character.
 
 #### `ace-isearch-input-idle-jump-delay` (Default：`0.4`)
-Delay seconds for invoking `ace-jump-mode` during isearch.
+Delay seconds for invoking `ace-jump-mode` or `avy` during isearch.
 
 #### `ace-isearch-input-idle-func-delay` (Default：`0.0`)
 Delay seconds for invoking `ace-isearch-function-from-isearch` during isearch, which is described below.
@@ -100,7 +102,7 @@ If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variabl
 
 #### `ace-isearch-set-ace-jump-after-isearch-exit`
 This functionality is optional.
-`ace-jump-mode` will be invoked further using the isearch query after exiting isearch.
+`ace-jump-mode` or `avy` will be invoked further using the isearch query after exiting isearch.
 This helps to reduce many key repeats of `C-s` or `C-r`.
 
 You can enable this as follows:
