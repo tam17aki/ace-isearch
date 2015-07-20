@@ -202,23 +202,5 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (define-obsolete-function-alias 'ace-isearch-switch-submode 'ace-isearch-switch-function "0.1.3")
 (define-obsolete-variable-alias 'ace-isearch-submode 'ace-isearch-function "0.1.3")
 
-;; misc
-(defvar ace-isearch--active-when-isearch-exit-p nil)
-
-(defadvice isearch-exit (after do-ace-isearch-jump disable)
-  (if (and ace-isearch--active-when-isearch-exit-p
-           (> (length isearch-string) 1)
-           (< (length isearch-string) ace-isearch-input-length))
-      (let ((ace-jump-mode-scope 'window))
-        (ace-jump-do (regexp-quote isearch-string)))))
-
-(defun ace-isearch-set-ace-jump-after-isearch-exit (activate)
-  "Set invoking ace-jump-mode automatically when `isearch-exit' has done."
-  (if activate
-      (ad-enable-advice 'isearch-exit 'after 'do-ace-isearch-jump)
-    (ad-disable-advice 'isearch-exit 'after 'do-ace-isearch-jump))
-  (ad-activate 'isearch-exit)
-  (setq ace-isearch--active-when-isearch-exit-p activate))
-
 (provide 'ace-isearch)
 ;;; ace-isearch.el ends here
