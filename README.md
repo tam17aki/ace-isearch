@@ -123,7 +123,7 @@ This functionality is optional.
 When isearch fails and `ace-isearch-use-fallback-function` is non-nil,
 `ace-isearch-fallback-function` will be invoked as a fallback function.
 
-You shoud specify the symbol name of function which uses `isearch-string`, the query string during isearch.
+You should specify the symbol name of function which uses `isearch-string`, the query string during isearch.
 For a trivial example, you can specify it as follows:
 
 ```el
