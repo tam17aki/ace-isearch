@@ -152,8 +152,6 @@ Especially when `ace-isearch-fallback-function` is set to `helm-swoop-from-isear
 (custom-set-variables
  '(ace-isearch-input-length 7)
  '(ace-isearch-input-idle-delay 0.3)
- '(ace-isearch-submode 'ace-jump-char-mode)
+ '(ace-isearch-function 'ace-jump-char-mode)
  '(ace-isearch-use-ace-jump 'printing-char))
- 
-(ace-isearch-set-ace-jump-after-isearch-exit t)
 ```
