@@ -198,6 +198,10 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   ace-isearch-mode ace-isearch--turn-on
   :group 'ace-isearch)
 
+;; obsolete functions and variables
+(define-obsolete-function-alias 'ace-isearch-switch-submode 'ace-isearch-switch-function "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-submode 'ace-isearch-function "0.1.3")
+
 ;; misc
 (defvar ace-isearch--active-when-isearch-exit-p nil)
 
