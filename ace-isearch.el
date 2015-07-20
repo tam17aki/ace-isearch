@@ -176,6 +176,16 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
          (funcall ace-isearch-function-from-isearch))))
 
 ;;;###autoload
+(defun ace-isearch-jump-during-isearch ()
+  "Jump to the one of the current isearch candidates."
+  (interactive)
+  (if (and (> (length isearch-string) 1)
+           (< (length isearch-string) ace-isearch-input-length))
+      (let ((ace-jump-mode-scope 'window))
+        (isearch-exit)
+        (ace-jump-do (regexp-quote isearch-string)))))
+
+;;;###autoload
 (define-minor-mode ace-isearch-mode
   "Minor-mode which combines isearch, ace-jump-mode, avy, and helm-swoop seamlessly."
   :group      'ace-isearch
