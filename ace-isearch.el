@@ -128,6 +128,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (list "ace-jump-word-mode" "ace-jump-char-mode" "avy-goto-word-0" "avy-goto-word-1" "avy-goto-char")
   "List of functions in jumping.")
 
+(defvar ace-isearch--jump-during-isearch-p nil)
+
 (defun ace-isearch-switch-function ()
   (interactive)
   (let ((function (completing-read
@@ -145,7 +147,11 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
     t))
 
 (defun ace-isearch--pop-mark ()
-  (if (= (length isearch-string) 1) (progn (pop-mark))))
+  (if (or (= (length isearch-string) 1)
+          ace-isearch--jump-during-isearch-p)
+      (progn
+        (progn (pop-mark))
+        (setq ace-isearch--jump-during-isearch-p nil))))
 
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
@@ -182,6 +188,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (if (and (> (length isearch-string) 1)
            (< (length isearch-string) ace-isearch-input-length))
       (let ((ace-jump-mode-scope 'window))
+        (setq ace-isearch--jump-during-isearch-p t)
         (isearch-exit)
         (ace-jump-do (regexp-quote isearch-string)))))
 
