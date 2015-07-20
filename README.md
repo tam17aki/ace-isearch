@@ -132,5 +132,6 @@ when isearch fails.
  '(ace-isearch-input-length 7)
  '(ace-isearch-input-idle-delay 0.3)
  '(ace-isearch-function 'ace-jump-char-mode)
- '(ace-isearch-use-ace-jump 'printing-char))
+ '(ace-isearch-use-ace-jump 'printing-char)
+ '(define-key isearch-mode-map (kbd "C-'") 'ace-isearch-jump-during-isearch))
 ```
