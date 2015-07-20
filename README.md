@@ -103,7 +103,7 @@ If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variabl
 
 #### `ace-isearch-set-ace-jump-after-isearch-exit`
 This functionality is optional.
-`ace-jump-mode` or `avy` will be invoked further using the isearch query after exiting isearch.
+`ace-jump-mode` will be invoked further using the isearch query after exiting isearch.
 This helps to reduce many key repeats of `C-s` or `C-r`.
 
 You can enable this as follows:
