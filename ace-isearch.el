@@ -1,12 +1,12 @@
-;;; ace-isearch.el --- A seamless bridge between isearch and ace-jump-mode -*- coding: utf-8; lexical-binding: t -*-
+;;; ace-isearch.el --- A seamless bridge between isearch, ace-jump-mode, avy and helm-swoop -*- coding: utf-8; lexical-binding: t -*-
 
-;; Copyright (C) 2014 by Akira TAMAMORI
+;; Copyright (C) 2014, 2015 by Akira TAMAMORI
 
 ;; Author: Akira Tamamori
 ;; URL: https://github.com/tam17aki/ace-isearch
-;; Version: 0.1.2
+;; Version: 0.1.3
 ;; Created: Sep 25 2014
-;; Package-Requires: ((ace-jump-mode "2.0") (helm-swoop "1.4") (emacs "24"))
+;; Package-Requires: ((ace-jump-mode "2.0") (avy "0.3") (helm-swoop "1.4") (emacs "24"))
 
 ;; This program is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free Software
@@ -23,18 +23,18 @@
 
 ;;; Commentary:
 ;;
-;; `ace-isearch.el' provides a minor mode which combines `isearch' and
-;; `ace-jump-mode'.
+;; `ace-isearch.el' provides a minor mode which combines `isearch',
+;; `ace-jump-mode', `avy', and `helm-swoop'.
 ;;
 ;; The "default" behavior can be summrized as:
 ;;
-;; L = 1     : `ace-jump-mode'
+;; L = 1     : `ace-jump-mode' or `avy'
 ;; 1 < L < 6 : `isearch'
 ;; L >= 6    : `helm-swoop-from-isearch'
 ;;
 ;; where L is the input string length during `isearch'.  When L is 1, after a
-;; few seconds specified by `ace-isearch-input-idle-delay', `ace-jump-mode' will
-;; be invoked. Of course you can customize the above behaviour.
+;; few seconds specified by `ace-isearch-input-idle-delay', `ace-jump-mode'
+;;  or `avy' will be invoked. Of course you can customize the above behaviour.
 
 ;;; Installation:
 ;;
@@ -49,6 +49,7 @@
 
 (require 'helm-swoop)
 (require 'ace-jump-mode)
+(require 'avy)
 
 (defgroup ace-isearch nil
   "Group of ace-isearch."
@@ -78,7 +79,10 @@ during isearch."
 (defcustom ace-isearch-submode 'ace-jump-word-mode
   "Sub-mode for ace-jump-mode."
   :type '(choice (const :tag "Use ace-jump-word-mode." ace-jump-word-mode)
-                 (const :tag "Use ace-jump-char-mode." ace-jump-char-mode))
+                 (const :tag "Use ace-jump-char-mode." ace-jump-char-mode)
+                 (const :tag "Use avy-goto-word-0." avy-goto-word-0)
+                 (const :tag "Use avy-goto-word-1." avy-goto-word-1)
+                 (const :tag "Use avy-goto-char." avy-goto-char))
   :group 'ace-isearch)
 
 (defcustom ace-isearch-use-ace-jump t
@@ -121,14 +125,14 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :group 'ace-isearch)
 
 (defvar ace-isearch--submode-list
-  (list "ace-jump-word-mode" "ace-jump-char-mode")
-  "List of jump type for ace-jump-mode.")
+  (list "ace-jump-word-mode" "ace-jump-char-mode" "avy-goto-word-0" "avy-goto-word-1" "avy-goto-char" )
+  "List of jump type.")
 
 (defun ace-isearch-switch-submode ()
   (interactive)
   (let ((submode (completing-read
                   (format "Sub-mode (current is %s): " ace-isearch-submode)
-                  ace-isearch--submode-list nil t "ace-jump-")))
+                  ace-isearch--submode-list nil t )))
     (setq ace-isearch-submode (intern-soft submode))
     (message "Sub-mode of ace-isearch is set to %s." submode)))
 
