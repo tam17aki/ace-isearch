@@ -61,7 +61,7 @@
   :group 'ace-isearch)
 
 (defcustom ace-isearch-input-idle-jump-delay 0.4
-  "Delay seconds for invoking `ace-jump-mode' during isearch."
+  "Delay seconds for invoking `ace-jump-mode' or `avy' during isearch."
   :type 'number
   :group 'ace-isearch)
 
@@ -86,7 +86,7 @@ during isearch."
   :group 'ace-isearch)
 
 (defcustom ace-isearch-use-ace-jump t
-  "If `nil', `ace-jump-mode' is never invoked.
+  "If `nil', `ace-jump-mode' or `avy' is never invoked.
 
 If `t', it is always invoked if the length of `isearch-string' is
 equal to 1.
