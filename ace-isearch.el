@@ -76,8 +76,8 @@ during isearch."
   :type 'integer
   :group 'ace-isearch)
 
-(defcustom ace-isearch-submode 'ace-jump-word-mode
-  "Sub-mode for ace-jump-mode."
+(defcustom ace-isearch-function 'ace-jump-word-mode
+  "Function name in invoking ace-jump-mode or avy."
   :type '(choice (const :tag "Use ace-jump-word-mode." ace-jump-word-mode)
                  (const :tag "Use ace-jump-char-mode." ace-jump-char-mode)
                  (const :tag "Use avy-goto-word-0." avy-goto-word-0)
@@ -124,17 +124,17 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :type 'boolean
   :group 'ace-isearch)
 
-(defvar ace-isearch--submode-list
-  (list "ace-jump-word-mode" "ace-jump-char-mode" "avy-goto-word-0" "avy-goto-word-1" "avy-goto-char" )
-  "List of jump type.")
+(defvar ace-isearch--function-list
+  (list "ace-jump-word-mode" "ace-jump-char-mode" "avy-goto-word-0" "avy-goto-word-1" "avy-goto-char")
+  "List of functions in jumping.")
 
-(defun ace-isearch-switch-submode ()
+(defun ace-isearch-switch-function ()
   (interactive)
-  (let ((submode (completing-read
-                  (format "Sub-mode (current is %s): " ace-isearch-submode)
-                  ace-isearch--submode-list nil t )))
-    (setq ace-isearch-submode (intern-soft submode))
-    (message "Sub-mode of ace-isearch is set to %s." submode)))
+  (let ((function (completing-read
+                  (format "Sub-mode (current is %s): " ace-isearch-function)
+                  ace-isearch--function-list nil t )))
+    (setq ace-isearch-function (intern-soft function))
+    (message "Function for ace-isearch is set to %s." function)))
 
 (defun ace-isearch--fboundp (func flag)
   (when flag
@@ -151,13 +151,13 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (cond ((and (= (length isearch-string) 1)
               (not (or isearch-regexp
                        isearch-word))
-              (ace-isearch--fboundp ace-isearch-submode
+              (ace-isearch--fboundp ace-isearch-function
                                     (or (eq ace-isearch-use-ace-jump t)
                                         (and (eq ace-isearch-use-ace-jump 'printing-char)
                                              (eq this-command 'isearch-printing-char))))
               (sit-for ace-isearch-input-idle-jump-delay))
          (isearch-exit)
-         (funcall ace-isearch-submode (string-to-char isearch-string)))
+         (funcall ace-isearch-function (string-to-char isearch-string)))
 
         ((and (> (length isearch-string) 1)
               (< (length isearch-string) ace-isearch-input-length)
