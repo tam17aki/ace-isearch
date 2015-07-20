@@ -181,7 +181,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :group      'ace-isearch
   :init-value nil
   :global     nil
-  :lighter    ace-isearch-mode-lighter
+  :lighter    ace-isearch-lighter
   (if ace-isearch-mode
       (progn
         (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-function nil t)
