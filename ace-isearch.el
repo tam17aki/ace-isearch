@@ -177,7 +177,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
 ;;;###autoload
 (define-minor-mode ace-isearch-mode
-  "Minor-mode which combines isearch and ace-jump-mode seamlessly."
+  "Minor-mode which combines isearch, ace-jump-mode, avy, and helm-swoop seamlessly."
   :group      'ace-isearch
   :init-value nil
   :global     nil
