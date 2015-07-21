@@ -206,7 +206,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                (isearch-exit)
                (ace-jump-do (regexp-quote isearch-string))))
             ((eq ace-isearch--ace-jump-or-avy 'avy)
-             (avy-isearch)))))
+             (let ((avy-all-windows nil))
+               (avy-isearch))))))
 
 ;;;###autoload
 (define-minor-mode ace-isearch-mode
