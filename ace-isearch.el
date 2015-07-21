@@ -129,6 +129,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   "List of functions in jumping.")
 
 (defvar ace-isearch--jump-during-isearch-p nil)
+(defvar ace-isearch--ace-jump-or-avy)
 
 (defun ace-isearch-switch-function ()
   (interactive)
@@ -182,16 +183,30 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
          (isearch-exit)
          (funcall ace-isearch-function-from-isearch))))
 
+(defun ace-isearch--make-ace-jump-or-avy ()
+  (cond ((or (eq ace-isearch-function 'ace-jump-char-mode)
+             (eq ace-isearch-function 'ace-jump-word-mode))
+         (setq ace-isearch--ace-jump-or-avy 'ace-jump))
+        ((or (eq ace-isearch-function 'avy-goto-word-0)
+             (eq ace-isearch-function 'avy-goto-word-1)
+             (eq ace-isearch-function 'avy-goto-char))
+         (setq ace-isearch--ace-jump-or-avy 'avy))
+        (t
+         (error (format "Function name %s for ace-isearch is invalid!"
+                        ace-isearch-function)))))
+
 ;;;###autoload
 (defun ace-isearch-jump-during-isearch ()
   "Jump to the one of the current isearch candidates."
   (interactive)
-  (if (and (> (length isearch-string) 1)
-           (< (length isearch-string) ace-isearch-input-length))
-      (let ((ace-jump-mode-scope 'window))
-        (setq ace-isearch--jump-during-isearch-p t)
-        (isearch-exit)
-        (ace-jump-do (regexp-quote isearch-string)))))
+  (if (< (length isearch-string) ace-isearch-input-length)
+      (cond ((eq ace-isearch--ace-jump-or-avy 'ace-jump)
+             (let ((ace-jump-mode-scope 'window))
+               (setq ace-isearch--jump-during-isearch-p t)
+               (isearch-exit)
+               (ace-jump-do (regexp-quote isearch-string))))
+            ((eq ace-isearch--ace-jump-or-avy 'avy)
+             (avy-isearch)))))
 
 ;;;###autoload
 (define-minor-mode ace-isearch-mode
@@ -203,7 +218,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (if ace-isearch-mode
       (progn
         (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-function nil t)
-        (add-hook 'ace-jump-mode-end-hook 'ace-isearch--pop-mark nil t))
+        (add-hook 'ace-jump-mode-end-hook 'ace-isearch--pop-mark nil t)
+        (ace-isearch--make-ace-jump-or-avy))
     (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-function t)
     (remove-hook 'ace-jump-mode-end-hook 'ace-isearch--pop-mark t)))
 
