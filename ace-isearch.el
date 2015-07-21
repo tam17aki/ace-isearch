@@ -33,8 +33,8 @@
 ;; L >= 6    : `helm-swoop-from-isearch'
 ;;
 ;; where L is the input string length during `isearch'.  When L is 1, after a
-;; few seconds specified by `ace-isearch-jump-delay', `ace-jump-mode'
-;;  or `avy' will be invoked. Of course you can customize the above behaviour.
+;; few seconds specified by `ace-isearch-jump-delay', `ace-jump-mode' or `avy'
+;; will be invoked. Of course you can customize the above behaviour.
 
 ;;; Installation:
 ;;
