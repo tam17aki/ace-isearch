@@ -33,7 +33,7 @@
 ;; L >= 6    : `helm-swoop-from-isearch'
 ;;
 ;; where L is the input string length during `isearch'.  When L is 1, after a
-;; few seconds specified by `ace-isearch-input-idle-delay', `ace-jump-mode'
+;; few seconds specified by `ace-isearch-jump-delay', `ace-jump-mode'
 ;;  or `avy' will be invoked. Of course you can customize the above behaviour.
 
 ;;; Installation:
@@ -60,12 +60,12 @@
   :type 'string
   :group 'ace-isearch)
 
-(defcustom ace-isearch-input-idle-jump-delay 0.4
+(defcustom ace-isearch-jump-delay 0.4
   "Delay seconds for invoking `ace-jump-mode' or `avy' during isearch."
   :type 'number
   :group 'ace-isearch)
 
-(defcustom ace-isearch-input-idle-func-delay 0.0
+(defcustom ace-isearch-func-delay 0.0
   "Delay seconds for invoking `ace-isearch-function-from-isearch' during isearch."
   :type 'number
   :group 'ace-isearch)
@@ -85,7 +85,7 @@ during isearch."
                  (const :tag "Use avy-goto-char." avy-goto-char))
   :group 'ace-isearch)
 
-(defcustom ace-isearch-use-ace-jump t
+(defcustom ace-isearch-use-jump t
   "If `nil', `ace-jump-mode' or `avy' is never invoked.
 
 If `t', it is always invoked if the length of `isearch-string' is
@@ -133,8 +133,9 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (defun ace-isearch-switch-function ()
   (interactive)
   (let ((function (completing-read
-                  (format "Sub-mode (current is %s): " ace-isearch-function)
-                  ace-isearch--function-list nil t )))
+                   (format "Function for ace-isearch (current is %s): "
+                           ace-isearch-function)
+                   ace-isearch--function-list nil t)))
     (setq ace-isearch-function (intern-soft function))
     (message "Function for ace-isearch is set to %s." function)))
 
@@ -158,17 +159,17 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (not (or isearch-regexp
                        isearch-word))
               (ace-isearch--fboundp ace-isearch-function
-                                    (or (eq ace-isearch-use-ace-jump t)
-                                        (and (eq ace-isearch-use-ace-jump 'printing-char)
+                                    (or (eq ace-isearch-use-jump t)
+                                        (and (eq ace-isearch-use-jump 'printing-char)
                                              (eq this-command 'isearch-printing-char))))
-              (sit-for ace-isearch-input-idle-jump-delay))
+              (sit-for ace-isearch-jump-delay))
          (isearch-exit)
          (funcall ace-isearch-function (string-to-char isearch-string)))
 
         ((and (> (length isearch-string) 1)
               (< (length isearch-string) ace-isearch-input-length)
               (not isearch-success)
-              (sit-for ace-isearch-input-idle-jump-delay))
+              (sit-for ace-isearch-jump-delay))
          (if (ace-isearch--fboundp
               ace-isearch-fallback-function ace-isearch-use-fallback-function)
              (funcall ace-isearch-fallback-function)))
@@ -177,7 +178,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (not isearch-regexp)
               (ace-isearch--fboundp
                ace-isearch-function-from-isearch ace-isearch-use-function-from-isearch)
-              (sit-for ace-isearch-input-idle-func-delay))
+              (sit-for ace-isearch-func-delay))
          (isearch-exit)
          (funcall ace-isearch-function-from-isearch))))
 
@@ -218,6 +219,9 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 ;; obsolete functions and variables
 (define-obsolete-function-alias 'ace-isearch-switch-submode 'ace-isearch-switch-function "0.1.3")
 (define-obsolete-variable-alias 'ace-isearch-submode 'ace-isearch-function "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-input-idle-jump-delay 'ace-isearch-jump-delay "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-input-idle-func-delay 'ace-isearch-func-delay "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-use-ace-jump 'ace-isearch-use-jump "0.1.3")
 
 (provide 'ace-isearch)
 ;;; ace-isearch.el ends here
