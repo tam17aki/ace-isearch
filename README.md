@@ -12,7 +12,7 @@ The "default" behavior can be summrized as:
 - L >= 6    : `helm-swoop-from-isearch`
 
 where L is the input string length during `isearch`.  When L is 1, after a
-few seconds specified by `ace-isearch-input-idle-delay`, `ace-jump-mode` or `avy` will
+few seconds specified by `ace-isearch-jump-delay`, `ace-jump-mode` or `avy` will
 be invoked. Of course you can customize the above behaviour.
 
 ## Requirements
@@ -60,7 +60,7 @@ You should specify `ace-jump-word-mode`, `ace-jump-char-mode`, `avy-goto-word-0`
 #### `ace-isearch-switch-function`
 You can switch the value of `ace-isearch-funciton` interactively.
 
-#### `ace-isearch-use-ace-jump` (Default:`t`)
+#### `ace-isearch-use-jump` (Default:`t`)
 If this variable is set to `nil`, `ace-jump-mode` or `avy` is never invoked.
 
 If set to `t`, it is always invoked if the length of `isearch-string` is equal to 1.
@@ -69,10 +69,10 @@ If set to `printing-char`, it is invoked only if you hit a printing character to
 This prevents it from being invoked when repeating a one character search, yanking a character or calling
 `isearch-delete-char` leaving only one character.
 
-#### `ace-isearch-input-idle-jump-delay` (Default：`0.4`)
+#### `ace-isearch-jump-delay` (Default：`0.4`)
 Delay seconds for invoking `ace-jump-mode` or `avy` during isearch.
 
-#### `ace-isearch-input-idle-func-delay` (Default：`0.0`)
+#### `ace-isearch-func-delay` (Default：`0.0`)
 Delay seconds for invoking `ace-isearch-function-from-isearch` during isearch, which is described below.
 
 #### `ace-isearch-input-length` (Default：`6`)
@@ -134,8 +134,8 @@ This helps to reduce many key repeats of `C-s` or `C-r`.
 
 (custom-set-variables
  '(ace-isearch-input-length 7)
- '(ace-isearch-input-idle-delay 0.3)
+ '(ace-isearch-jump-delay 0.3)
  '(ace-isearch-function 'ace-jump-char-mode)
- '(ace-isearch-use-ace-jump 'printing-char)
+ '(ace-isearch-use-jump 'printing-char)
  '(define-key isearch-mode-map (kbd "C-'") 'ace-isearch-jump-during-isearch))
 ```
