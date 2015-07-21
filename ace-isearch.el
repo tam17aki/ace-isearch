@@ -141,6 +141,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
     (message "Function for ace-isearch is set to %s." function)))
 
 (defun ace-isearch--fboundp (func flag)
+  (declare (indent 1))
   (when flag
     (when (eq func nil)
       (error "function name must be specified!"))
@@ -160,12 +161,14 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (not (or isearch-regexp
                        isearch-word))
               (ace-isearch--fboundp ace-isearch-function
-                                    (or (eq ace-isearch-use-jump t)
-                                        (and (eq ace-isearch-use-jump 'printing-char)
-                                             (eq this-command 'isearch-printing-char))))
+                (or (eq ace-isearch-use-jump t)
+                    (and (eq ace-isearch-use-jump 'printing-char)
+                         (eq this-command 'isearch-printing-char))))
               (sit-for ace-isearch-jump-delay))
          (isearch-exit)
-         (funcall ace-isearch-function (string-to-char isearch-string)))
+         (funcall ace-isearch-function (string-to-char isearch-string))
+         (if (eq ace-isearch--ace-jump-or-avy 'avy)
+             (ace-isearch--pop-mark)))
 
         ((and (> (length isearch-string) 1)
               (< (length isearch-string) ace-isearch-input-length)
@@ -177,8 +180,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
         ((and (>= (length isearch-string) ace-isearch-input-length)
               (not isearch-regexp)
-              (ace-isearch--fboundp
-               ace-isearch-function-from-isearch ace-isearch-use-function-from-isearch)
+              (ace-isearch--fboundp ace-isearch-function-from-isearch
+                ace-isearch-use-function-from-isearch)
               (sit-for ace-isearch-func-delay))
          (isearch-exit)
          (funcall ace-isearch-function-from-isearch))))
@@ -234,11 +237,16 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :group 'ace-isearch)
 
 ;; obsolete functions and variables
-(define-obsolete-function-alias 'ace-isearch-switch-submode 'ace-isearch-switch-function "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-submode 'ace-isearch-function "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-input-idle-jump-delay 'ace-isearch-jump-delay "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-input-idle-func-delay 'ace-isearch-func-delay "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-use-ace-jump 'ace-isearch-use-jump "0.1.3")
+(define-obsolete-function-alias 'ace-isearch-switch-submode
+  'ace-isearch-switch-function "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-submode
+  'ace-isearch-function "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-input-idle-jump-delay
+  'ace-isearch-jump-delay "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-input-idle-func-delay
+  'ace-isearch-func-delay "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-use-ace-jump
+  'ace-isearch-use-jump "0.1.3")
 
 (provide 'ace-isearch)
 ;;; ace-isearch.el ends here
