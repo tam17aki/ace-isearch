@@ -149,13 +149,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
       (error (format "function %s is not bounded!" func)))
     t))
 
-(defun ace-isearch--pop-mark ()
-  (if (or (= (length isearch-string) 1)
-          ace-isearch--jump-during-isearch-p)
-      (progn
-        (progn (pop-mark))
-        (setq ace-isearch--jump-during-isearch-p nil))))
-
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
               (not (or isearch-regexp
@@ -165,10 +158,9 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                     (and (eq ace-isearch-use-jump 'printing-char)
                          (eq this-command 'isearch-printing-char))))
               (sit-for ace-isearch-jump-delay))
+         (goto-char isearch-opoint)
          (isearch-exit)
-         (funcall ace-isearch-function (string-to-char isearch-string))
-         (if (eq ace-isearch--ace-jump-or-avy 'avy)
-             (ace-isearch--pop-mark)))
+         (funcall ace-isearch-function (string-to-char isearch-string)))
 
         ((and (> (length isearch-string) 1)
               (< (length isearch-string) ace-isearch-input-length)
@@ -222,10 +214,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (if ace-isearch-mode
       (progn
         (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-function nil t)
-        (add-hook 'ace-jump-mode-end-hook 'ace-isearch--pop-mark nil t)
         (ace-isearch--make-ace-jump-or-avy))
-    (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-function t)
-    (remove-hook 'ace-jump-mode-end-hook 'ace-isearch--pop-mark t)))
+    (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-function t)))
 
 (defun ace-isearch--turn-on ()
   (unless (minibufferp)
