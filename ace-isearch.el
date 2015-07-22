@@ -159,8 +159,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                     (and (eq ace-isearch-use-jump 'printing-char)
                          (eq this-command 'isearch-printing-char))))
               (sit-for ace-isearch-jump-delay))
-         (goto-char isearch-opoint)
          (isearch-exit)
+         (goto-char isearch-opoint)
          (funcall ace-isearch-function (string-to-char isearch-string)))
 
         ((and (> (length isearch-string) 1)
