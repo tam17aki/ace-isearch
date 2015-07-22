@@ -82,6 +82,8 @@ during isearch."
                  (const :tag "Use ace-jump-char-mode." ace-jump-char-mode)
                  (const :tag "Use avy-goto-word-0." avy-goto-word-0)
                  (const :tag "Use avy-goto-word-1." avy-goto-word-1)
+                 (const :tag "Use avy-goto-word-0." avy-goto-subword-0)
+                 (const :tag "Use avy-goto-word-1." avy-goto-subword-1)
                  (const :tag "Use avy-goto-char." avy-goto-char))
   :group 'ace-isearch)
 
@@ -125,7 +127,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :group 'ace-isearch)
 
 (defvar ace-isearch--function-list
-  (list "ace-jump-word-mode" "ace-jump-char-mode" "avy-goto-word-0" "avy-goto-word-1" "avy-goto-char")
+  (list "ace-jump-word-mode" "ace-jump-char-mode" "avy-goto-word-0"
+        "avy-goto-word-1" "avy-goto-subword-0" "avy-goto-subword-1" "avy-goto-char")
   "List of functions in jumping.")
 
 (defvar ace-isearch--jump-during-isearch-p nil)
@@ -184,6 +187,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
          (setq ace-isearch--ace-jump-or-avy 'ace-jump))
         ((or (eq ace-isearch-function 'avy-goto-word-0)
              (eq ace-isearch-function 'avy-goto-word-1)
+             (eq ace-isearch-function 'avy-goto-subword-0)
+             (eq ace-isearch-function 'avy-goto-subword-1)
              (eq ace-isearch-function 'avy-goto-char))
          (setq ace-isearch--ace-jump-or-avy 'avy))
         (t
