@@ -139,6 +139,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                            ace-isearch-function)
                    ace-isearch--function-list nil t)))
     (setq ace-isearch-function (intern-soft function))
+    (ace-isearch--make-ace-jump-or-avy)
     (message "Function for ace-isearch is set to %s." function)))
 
 (defun ace-isearch--fboundp (func flag)
