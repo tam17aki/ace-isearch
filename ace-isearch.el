@@ -45,8 +45,6 @@
 
 ;;; Code:
 
-(eval-when-compile (defvar helm-swoop-last-prefix-number 0))
-
 (require 'helm-swoop)
 (require 'ace-jump-mode)
 (require 'avy)
