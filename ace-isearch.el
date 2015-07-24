@@ -134,13 +134,13 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
 (defun ace-isearch-switch-function ()
   (interactive)
-  (let ((function (completing-read
-                   (format "Function for ace-isearch (current is %s): "
-                           ace-isearch-function)
-                   ace-isearch--function-list nil t)))
-    (setq ace-isearch-function (intern-soft function))
+  (let ((func (completing-read
+               (format "Function for ace-isearch (current is %s): "
+                       ace-isearch-function)
+               ace-isearch--function-list nil t)))
+    (setq ace-isearch-function (intern-soft func))
     (ace-isearch--make-ace-jump-or-avy)
-    (message "Function for ace-isearch is set to %s." function)))
+    (message "Function for ace-isearch is set to %s." func)))
 
 (defun ace-isearch--fboundp (func flag)
   (declare (indent 1))
