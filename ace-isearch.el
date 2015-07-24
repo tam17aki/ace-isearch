@@ -163,6 +163,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (sit-for ace-isearch-jump-delay))
          (isearch-exit)
          (goto-char isearch-opoint)
+         (if (or (< (point) (window-start)) (> (point) (window-end)))
+             (message "Notice: Character '%s' could not be found in the \"selected visible window\"." isearch-string))
          (funcall ace-isearch-function (string-to-char isearch-string)))
 
         ((and (> (length isearch-string) 1)
