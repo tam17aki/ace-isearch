@@ -187,6 +187,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
          (setq ace-isearch--ace-jump-or-avy 'ace-jump))
         ((or (eq ace-isearch-function 'avy-goto-word-1)
              (eq ace-isearch-function 'avy-goto-subword-1)
+             (eq ace-isearch-function 'avy-goto-word-or-subword-1)
              (eq ace-isearch-function 'avy-goto-char))
          (setq ace-isearch--ace-jump-or-avy 'avy))
         (t
