@@ -1,22 +1,25 @@
-ace-isearch.el [![MELPA](http://melpa.org/packages/ace-isearch-badge.svg)](http://melpa.org/#/ace-isearch)
+ace-isearch [![MELPA](http://melpa.org/packages/ace-isearch-badge.svg)](http://melpa.org/#/ace-isearch) [![MELPA Stable](http://stable.melpa.org/packages/ace-isearch-badge.svg)](http://stable.melpa.org/#/ace-isearch)
 ===========
 
 ## Introduction
-`ace-isearch.el` provides a minor mode which combines `isearch` and [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode).
+`ace-isearch.el` provides a minor mode which combines `isearch`,  [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode), 
+[`avy`](https://github.com/abo-abo/avy), and
+[`helm-swoop`](https://github.com/ShingoFukuyama/helm-swoop).
 
 The "default" behavior can be summrized as:
-- L = 1     : `ace-jump-mode`
+- L = 1     : `ace-jump-mode` or `avy`
 - 1 < L < 6 : `isearch`
-- L >= 6    : `helm-swoop-from-isearch`
+- L >= 6    : `helm-swoop`
 
 where L is the input string length during `isearch`.  When L is 1, after a
-few seconds specified by `ace-isearch-input-idle-delay`, `ace-jump-mode` will
+few seconds specified by `ace-isearch-jump-delay`, `ace-jump-mode` or `avy` will
 be invoked. Of course you can customize the above behaviour.
 
 ## Requirements
 
 * Emacs 24 or higher
 * [ace-jump-mode](https://github.com/winterTTr/ace-jump-mode)
+* [avy](https://github.com/abo-abo/avy)
 * [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop)
 
 ## Installation
@@ -49,14 +52,16 @@ Enable global ace-isearch mode:
 
 ## Customization
 
-#### `ace-isearch-submode` (Default:`ace-jump-word-mode`)
-Specify the function name as `ace-jump-word-mode` or `ace-jump-char-mode` utilized in invoking `ace-jump-mode`.
+#### `ace-isearch-funciton` (Default:`ace-jump-word-mode`)
+Specify the function name utilized in invoking `ace-jump-mode` or `avy`.
+You should specify `ace-jump-word-mode`, `ace-jump-char-mode`, 
+`avy-goto-word-1`, `avy-goto-subword-1`, `avy-goto-word-or-subword-1`, or `avy-goto-char`.
 
-#### `ace-isearch-switch-submode`
-You can switch the value of `ace-isearch-submode` interactively.
+#### `ace-isearch-switch-function`
+You can switch the value of `ace-isearch-funciton` interactively.
 
-#### `ace-isearch-use-ace-jump` (Default:`t`)
-If this variable is set to `nil`, `ace-jump-mode` is never invoked.
+#### `ace-isearch-use-jump` (Default:`t`)
+If this variable is set to `nil`, `ace-jump-mode` or `avy` is never invoked.
 
 If set to `t`, it is always invoked if the length of `isearch-string` is equal to 1.
 
@@ -64,8 +69,11 @@ If set to `printing-char`, it is invoked only if you hit a printing character to
 This prevents it from being invoked when repeating a one character search, yanking a character or calling
 `isearch-delete-char` leaving only one character.
 
-#### `ace-isearch-input-idle-delay` (Default：`0.4`)
-Delay seconds for invoking `ace-jump-mode` and `ace-isearch-function-from-isearch` described below during isearch.
+#### `ace-isearch-jump-delay` (Default：`0.4`)
+Delay seconds for invoking `ace-jump-mode` or `avy` during isearch.
+
+#### `ace-isearch-func-delay` (Default：`0.0`)
+Delay seconds for invoking `ace-isearch-function-from-isearch` during isearch, which is described below.
 
 #### `ace-isearch-input-length` (Default：`6`)
 As default behaviour, when the input string length during isearch exceeds `ace-isearch-input-length`, 
@@ -95,29 +103,12 @@ Of course you can set this variable to `helm-occur-from-isearch`.
 #### `ace-isearch-use-function-from-isearch` (Default:`t`)
 If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable to `nil`.
 
-#### `ace-isearch-set-ace-jump-after-isearch-exit`
-This functionality is optional.
-`ace-jump-mode` will be invoked further using the isearch query after exiting isearch.
-This helps to reduce many key repeats of `C-s` or `C-r`.
-
-You can enable this as follows:
-
-```el
-(ace-isearch-set-ace-jump-after-isearch-exit t)
-```
-
-Otherwise you can disable this as follows:
-
-```el
-(ace-isearch-set-ace-jump-after-isearch-exit nil)
-```
-
 #### `ace-isearch-fallback-function`  (Default:`helm-swoop-from-isearch`)
 This functionality is optional.
 When isearch fails and `ace-isearch-use-fallback-function` is non-nil,
 `ace-isearch-fallback-function` will be invoked as a fallback function.
 
-You shoud specify the symbol name of function which uses `isearch-string`, the query string during isearch.
+You should specify the symbol name of function which uses `isearch-string`, the query string during isearch.
 For a trivial example, you can specify it as follows:
 
 ```el
@@ -132,9 +123,9 @@ For a trivial example, you can specify it as follows:
 If this variable is set to non-nil, `ace-isearch-fallback-function` will be invoked
 when isearch fails.
 
-## Notice
-`ace-isearch-fallback-function` may not be used with `ace-isearch-set-ace-jump-after-isearch-exit` simultaneously.
-Especially when `ace-isearch-fallback-function` is set to `helm-swoop-from-isearch` in which `isearch-exit` is invoked inside, `ace-isearch-set-ace-jump-after-isearch-exit` will prevent the fallback function from being invoked.
+#### `ace-isearch-jump-during-isearch`
+With this function, `ace-jump-mode` will be invoked further during isearch, which enables to jump to the one of the isearch candidates.
+This helps to reduce many key repeats of `C-s` or `C-r`.
 
 ## Sample Configuration
 ```el
@@ -143,9 +134,9 @@ Especially when `ace-isearch-fallback-function` is set to `helm-swoop-from-isear
 
 (custom-set-variables
  '(ace-isearch-input-length 7)
- '(ace-isearch-input-idle-delay 0.3)
- '(ace-isearch-submode 'ace-jump-char-mode)
- '(ace-isearch-use-ace-jump 'printing-char))
+ '(ace-isearch-jump-delay 0.3)
+ '(ace-isearch-function 'avy-goto-char)
+ '(ace-isearch-use-jump 'printing-char))
  
-(ace-isearch-set-ace-jump-after-isearch-exit t)
+(define-key isearch-mode-map (kbd "C-'") 'ace-isearch-jump-during-isearch)
 ```
