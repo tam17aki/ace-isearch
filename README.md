@@ -137,7 +137,7 @@ You can invoke `ace-jump-mode-pop-mark` or `avy-pop-mark` in accordance with the
 
 (custom-set-variables
  '(ace-isearch-input-length 7)
- '(ace-isearch-jump-delay 0.3)
+ '(ace-isearch-jump-delay 0.25)
  '(ace-isearch-function 'avy-goto-char)
  '(ace-isearch-use-jump 'printing-char))
  
