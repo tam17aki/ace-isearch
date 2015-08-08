@@ -51,7 +51,8 @@
 
 (defgroup ace-isearch nil
   "Group of ace-isearch."
-  :group 'convenience)
+  :group 'convenience
+  :prefix "ace-isearch-")
 
 (defcustom ace-isearch-lighter " AceI"
   "Lighter of ace-isearch-mode."
