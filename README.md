@@ -127,6 +127,9 @@ when isearch fails.
 With this function, `ace-jump-mode` will be invoked further during isearch, which enables to jump to the one of the isearch candidates.
 This helps to reduce many key repeats of `C-s` or `C-r`.
 
+#### `ace-isearch-pop-mark`
+You can invoke `ace-jump-mode-pop-mark` or `avy-pop-mark` in accordance with the current `ace-isearch-funciton`. With this function, you can jump back to the last location of `ace-jump-mode` or `avy`. 
+
 ## Sample Configuration
 ```el
 (require 'ace-isearch)
