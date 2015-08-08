@@ -189,12 +189,10 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (defun ace-isearch-pop-mark ()
   "Jump back to the last location of `ace-jump-mode-pop-mark' or `avy-push-mark'."
   (interactive)
-  (if (< (length isearch-string) ace-isearch-input-length)
-      (cond ((eq ace-isearch--ace-jump-or-avy 'ace-jump)
-             (isearch-exit)
-             (ace-jump-mode-pop-mark))
-            ((eq ace-isearch--ace-jump-or-avy 'avy)
-             (avy-pop-mark)))))
+  (cond ((eq ace-isearch--ace-jump-or-avy 'ace-jump)
+         (ace-jump-mode-pop-mark))
+        ((eq ace-isearch--ace-jump-or-avy 'avy)
+         (avy-pop-mark))))
 
 (defun ace-isearch--make-ace-jump-or-avy ()
   (let ((func-str (format "%s" ace-isearch-function)))
