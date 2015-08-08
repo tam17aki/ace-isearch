@@ -187,7 +187,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
          (funcall ace-isearch-function-from-isearch))))
 
 (defun ace-isearch-pop-mark ()
-  "Jump back to the last location of `ace-jump-mode-pop-mark' or `avy-push-mark'."
+  "Jump back to the last location of `ace-jump-mode' invoked or `avy-push-mark'."
   (interactive)
   (cond ((eq ace-isearch--ace-jump-or-avy 'ace-jump)
          (ace-jump-mode-pop-mark))
