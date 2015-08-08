@@ -174,8 +174,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (< (length isearch-string) ace-isearch-input-length)
               (not isearch-success)
               (sit-for ace-isearch-jump-delay))
-         (if (ace-isearch--fboundp
-              ace-isearch-fallback-function ace-isearch-use-fallback-function)
+         (if (ace-isearch--fboundp ace-isearch-fallback-function
+               ace-isearch-use-fallback-function)
              (funcall ace-isearch-fallback-function)))
 
         ((and (>= (length isearch-string) ace-isearch-input-length)
@@ -185,6 +185,18 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (sit-for ace-isearch-func-delay))
          (isearch-exit)
          (funcall ace-isearch-function-from-isearch))))
+
+(defun ace-isearch-pop-mark ()
+  "Jump back to the last location of `ace-jump-mode-pop-mark' or `avy-push-mark'."
+  (interactive)
+  (if (< (length isearch-string) ace-isearch-input-length)
+      (cond ((eq ace-isearch--ace-jump-or-avy 'ace-jump)
+             (let ((ace-jump-mode-scope 'window))
+               (isearch-exit)
+               (ace-jump-mode-pop-mark)))
+            ((eq ace-isearch--ace-jump-or-avy 'avy)
+             (let ((avy-all-windows nil))
+               (avy-pop-mark))))))
 
 (defun ace-isearch--make-ace-jump-or-avy ()
   (let ((func-str (format "%s" ace-isearch-function)))
