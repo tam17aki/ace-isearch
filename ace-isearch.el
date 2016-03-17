@@ -184,7 +184,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (ace-isearch--fboundp ace-isearch-function-from-isearch
                 ace-isearch-use-function-from-isearch)
               (sit-for ace-isearch-func-delay))
-         (isearch-exit)
          (funcall ace-isearch-function-from-isearch))))
 
 (defun ace-isearch-pop-mark ()
