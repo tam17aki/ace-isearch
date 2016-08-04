@@ -1,10 +1,10 @@
 ;;; ace-isearch.el --- A seamless bridge between isearch, ace-jump-mode, avy and helm-swoop -*- coding: utf-8; lexical-binding: t -*-
 
-;; Copyright (C) 2014, 2015 by Akira TAMAMORI
+;; Copyright (C) 2014-2016 by Akira TAMAMORI
 
 ;; Author: Akira Tamamori
 ;; URL: https://github.com/tam17aki/ace-isearch
-;; Version: 0.1.4
+;; Version: 0.1.5
 ;; Created: Sep 25 2014
 ;; Package-Requires: ((ace-jump-mode "2.0") (avy "0.3") (helm-swoop "1.4") (emacs "24"))
 
