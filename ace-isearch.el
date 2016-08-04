@@ -49,7 +49,7 @@
 (require 'ace-jump-mode)
 (require 'avy)
 
-(if (>= emacs-major-version 24)
+(if (>= emacs-major-version 25)
     (defvar isearch-regexp-function))
 
 (defgroup ace-isearch nil
