@@ -11,7 +11,7 @@ The "default" behavior can be summrized as:
 - 1 < L < 6 : `isearch`
 - L >= 6    : `helm-swoop`
 
-where L is the input string length during `isearch`.  When L is 1, after a
+where L is the length of input query string during `isearch`.  When L is 1, after a
 few seconds specified by `ace-isearch-jump-delay`, `ace-jump-mode` or `avy` will
 be invoked. Of course you can customize the above behaviour.
 
