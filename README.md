@@ -103,7 +103,7 @@ Of course you can set this variable to `helm-occur-from-isearch`.
 #### `ace-isearch-use-function-from-isearch` (Default:`t`)
 If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable to `nil`.
 
-#### `ace-isearch-fallback-function`  (Default:`helm-swoop-from-isearch`)
+#### `ace-isearch-fallback-function`  (Default:`ace-isearch-helm-swoop-from-isearch`)
 This functionality is optional.
 When isearch fails and `ace-isearch-use-fallback-function` is non-nil,
 `ace-isearch-fallback-function` will be invoked as a fallback function.
