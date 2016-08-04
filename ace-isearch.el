@@ -83,8 +83,7 @@ during isearch."
   :type '(choice (const :tag "Use ace-jump-word-mode." ace-jump-word-mode)
                  (const :tag "Use ace-jump-char-mode." ace-jump-char-mode)
                  (const :tag "Use avy-goto-word-1." avy-goto-word-1)
-                 (const :tag "Use avy-goto-word-1." avy-goto-subword-1)
-                 (const :tag "Use avy-goto-word-or-subword-1." avy-goto-word-or-subword-1)
+                 (const :tag "Use avy-goto-subword-1." avy-goto-subword-1)
                  (const :tag "Use avy-goto-char." avy-goto-char))
   :group 'ace-isearch)
 
