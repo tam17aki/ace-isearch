@@ -11,7 +11,7 @@ The "default" behavior can be summrized as:
 - 1 < L < 6 : `isearch`
 - L >= 6    : `helm-swoop`
 
-where L is the input string length during `isearch`.  When L is 1, after a
+where L is the length of input query string during `isearch`.  When L is 1, after a
 few seconds specified by `ace-isearch-jump-delay`, `ace-jump-mode` or `avy` will
 be invoked. Of course you can customize the above behaviour.
 
@@ -55,7 +55,7 @@ Enable global ace-isearch mode:
 #### `ace-isearch-funciton` (Default:`ace-jump-word-mode`)
 Specify the function name utilized in invoking `ace-jump-mode` or `avy`.
 You should specify `ace-jump-word-mode`, `ace-jump-char-mode`, 
-`avy-goto-word-1`, `avy-goto-subword-1`, `avy-goto-word-or-subword-1`, or `avy-goto-char`.
+`avy-goto-word-1`, `avy-goto-subword-1`, or `avy-goto-char`.
 
 #### `ace-isearch-switch-function`
 You can switch the value of `ace-isearch-funciton` interactively.
@@ -103,7 +103,7 @@ Of course you can set this variable to `helm-occur-from-isearch`.
 #### `ace-isearch-use-function-from-isearch` (Default:`t`)
 If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable to `nil`.
 
-#### `ace-isearch-fallback-function`  (Default:`helm-swoop-from-isearch`)
+#### `ace-isearch-fallback-function`  (Default:`ace-isearch-helm-swoop-from-isearch`)
 This functionality is optional.
 When isearch fails and `ace-isearch-use-fallback-function` is non-nil,
 `ace-isearch-fallback-function` will be invoked as a fallback function.
