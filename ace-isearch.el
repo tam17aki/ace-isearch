@@ -49,9 +49,6 @@
 (require 'ace-jump-mode)
 (require 'avy)
 
-(if (>= emacs-major-version 25)
-    (defvar isearch-regexp-function))
-
 (defgroup ace-isearch nil
   "Group of ace-isearch."
   :group 'convenience
@@ -161,9 +158,8 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
               (not (or isearch-regexp
-                       (if (>= emacs-major-version 25)
-                           isearch-regexp-function
-                         isearch-word)))
+                       (or (bound-and-true-p isearch-regexp-function)
+                           (bound-and-true-p isearch-word))))
               (ace-isearch--fboundp ace-isearch-function
                 (or (eq ace-isearch-use-jump t)
                     (and (eq ace-isearch-use-jump 'printing-char)
