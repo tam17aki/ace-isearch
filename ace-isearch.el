@@ -136,6 +136,10 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
 (defvar ace-isearch--ace-jump-or-avy)
 
+(defsubst ace-isearch--isearch-regexp-function ()
+  (or (bound-and-true-p isearch-regexp-function)
+      (bound-and-true-p isearch-word)))
+
 (defun ace-isearch-switch-function ()
   (interactive)
   (let ((func (completing-read
@@ -158,8 +162,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (defun ace-isearch--jumper-function ()
   (cond ((and (= (length isearch-string) 1)
               (not (or isearch-regexp
-                       (or (bound-and-true-p isearch-regexp-function)
-                           (bound-and-true-p isearch-word))))
+                       (ace-isearch--isearch-regexp-function)))
               (ace-isearch--fboundp ace-isearch-function
                 (or (eq ace-isearch-use-jump t)
                     (and (eq ace-isearch-use-jump 'printing-char)
