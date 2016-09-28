@@ -57,8 +57,12 @@ Specify the function name utilized in invoking `ace-jump-mode` or `avy`.
 You should specify `ace-jump-word-mode`, `ace-jump-char-mode`, 
 `avy-goto-word-1`, `avy-goto-subword-1`, or `avy-goto-char`.
 
+---
+
 #### `ace-isearch-switch-function`
 You can switch the value of `ace-isearch-funciton` interactively.
+
+---
 
 #### `ace-isearch-use-jump` (Default:`t`)
 If this variable is set to `nil`, `ace-jump-mode` or `avy` is never invoked.
@@ -69,15 +73,23 @@ If set to `printing-char`, it is invoked only if you hit a printing character to
 This prevents it from being invoked when repeating a one character search, yanking a character or calling
 `isearch-delete-char` leaving only one character.
 
+---
+
 #### `ace-isearch-jump-delay` (Default：`0.3`)
 Delay seconds for invoking `ace-jump-mode` or `avy` during isearch.
+
+---
 
 #### `ace-isearch-func-delay` (Default：`0.0`)
 Delay seconds for invoking `ace-isearch-function-from-isearch` during isearch, which is described below.
 
+---
+
 #### `ace-isearch-input-length` (Default：`6`)
 As default behaviour, when the input string length during isearch exceeds `ace-isearch-input-length`, 
 the function specified by `ace-isearch-funtion-from-isearch` will be invoked.
+
+---
 
 #### `ace-isearch-function-from-isearch` (Default:`helm-swoop-from-isearch`)
 Specify the function name invoked when the input string length during isearch exceeds `ace-isearch-input-length`.
@@ -100,8 +112,12 @@ Of course you can set this variable to `helm-occur-from-isearch`.
 (setq ace-isearch-funtion-from-isearch 'helm-occur-from-isearch)
 ```
 
+---
+
 #### `ace-isearch-use-function-from-isearch` (Default:`t`)
 If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable to `nil`.
+
+---
 
 #### `ace-isearch-fallback-function`  (Default:`ace-isearch-helm-swoop-from-isearch`)
 This functionality is optional.
@@ -119,13 +135,20 @@ For a trivial example, you can specify it as follows:
 (setq ace-isearch-fallback-function 'my-fallback-function)
 ```
 
+
+---
+
 #### `ace-isearch-use-fallback-function`  (Default:`nil`)
 If this variable is set to non-nil, `ace-isearch-fallback-function` will be invoked
 when isearch fails.
 
+---
+
 #### `ace-isearch-jump-during-isearch`
 With this function, `ace-jump-mode` will be invoked further during isearch, which enables to jump to the one of the isearch candidates.
 This helps to reduce many key repeats of `C-s` or `C-r`.
+
+---
 
 #### `ace-isearch-pop-mark`
 You can invoke `ace-jump-mode-pop-mark` or `avy-pop-mark` in accordance with the current `ace-isearch-funciton`. With this function, you can jump back to the last location of `ace-jump-mode` or `avy`. 
