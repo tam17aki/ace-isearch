@@ -168,7 +168,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                     (and (eq ace-isearch-use-jump 'printing-char)
                          (eq this-command 'isearch-printing-char))))
               (sit-for ace-isearch-jump-delay))
-         (isearch-exit)
+         (isearch-done)
          ;; go back to the point where isearch started
          (goto-char isearch-opoint)
          (if (or (< (point) (window-start)) (> (point) (window-end)))
@@ -188,7 +188,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
               (ace-isearch--fboundp ace-isearch-function-from-isearch
                 ace-isearch-use-function-from-isearch)
               (sit-for ace-isearch-func-delay))
-         (isearch-exit)
+         (isearch-done)
          (funcall ace-isearch-function-from-isearch))))
 
 (defun ace-isearch-pop-mark ()
