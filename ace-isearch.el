@@ -173,7 +173,10 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
          (goto-char isearch-opoint)
          (if (or (< (point) (window-start)) (> (point) (window-end)))
              (message "Notice: Character '%s' could not be found in the \"selected visible window\"." isearch-string))
-         (funcall ace-isearch-function (string-to-char isearch-string)))
+         (funcall ace-isearch-function (string-to-char isearch-string))
+         ;; work-around for emacs 25.1
+         (setq isearch--current-buffer (buffer-name (current-buffer))
+               isearch-string ""))
 
         ((and (> (length isearch-string) 1)
               (< (length isearch-string) ace-isearch-input-length)
@@ -189,7 +192,10 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                 ace-isearch-use-function-from-isearch)
               (sit-for ace-isearch-func-delay))
          (isearch-exit)
-         (funcall ace-isearch-function-from-isearch))))
+         (funcall ace-isearch-function-from-isearch)
+         ;; work-around for emacs 25.1
+         (setq isearch--current-buffer (buffer-name (current-buffer))
+               isearch-string ""))))
 
 (defun ace-isearch-pop-mark ()
   "Jump back to the last location of `ace-jump-mode' invoked or `avy-push-mark'."
