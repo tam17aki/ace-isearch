@@ -2,14 +2,14 @@ ace-isearch [![MELPA](http://melpa.org/packages/ace-isearch-badge.svg)](http://m
 ===========
 
 ## Introduction
-`ace-isearch.el` provides a minor mode which combines `isearch`,  [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode), 
-[`avy`](https://github.com/abo-abo/avy), and
-[`helm-swoop`](https://github.com/ShingoFukuyama/helm-swoop).
+`ace-isearch.el` provides a minor mode which combines `isearch`,  [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode) or
+[`avy`](https://github.com/abo-abo/avy) and
+[`helm-swoop`](https://github.com/ShingoFukuyama/helm-swoop) or [`swiper`](https://github.com/abo-abo/swiper/).
 
 The "default" behavior can be summrized as:
 - L = 1     : `ace-jump-mode` or `avy`
 - 1 < L < 6 : `isearch`
-- L >= 6    : `helm-swoop`
+- L >= 6    : `helm-swoop` or `swiper`
 
 where L is the length of input query string during `isearch`.  When L is 1, after a
 few seconds specified by `ace-isearch-jump-delay`, `ace-jump-mode` or `avy` will
@@ -21,6 +21,7 @@ be invoked. Of course you can customize the above behaviour.
 * [ace-jump-mode](https://github.com/winterTTr/ace-jump-mode)
 * [avy](https://github.com/abo-abo/avy)
 * [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop)
+* [swiper](https://github.com/abo-abo/swiper/)
 
 ## Installation
 
@@ -110,6 +111,11 @@ Of course you can set this variable to `helm-occur-from-isearch`.
 
 ```el
 (setq ace-isearch-funtion-from-isearch 'helm-occur-from-isearch)
+
+You can also set this variable to use `swiper`.
+
+```el
+(setq ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch)
 ```
 
 ---

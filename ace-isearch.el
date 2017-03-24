@@ -1,4 +1,4 @@
-;;; ace-isearch.el --- A seamless bridge between isearch, ace-jump-mode, avy and helm-swoop -*- coding: utf-8; lexical-binding: t -*-
+;;; ace-isearch.el --- A seamless bridge between isearch, ace-jump-mode, avy, helm-swoop and swiper -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2014-2016 by Akira TAMAMORI
 
@@ -6,7 +6,7 @@
 ;; URL: https://github.com/tam17aki/ace-isearch
 ;; Version: 0.1.5
 ;; Created: Sep 25 2014
-;; Package-Requires: ((ace-jump-mode "2.0") (avy "0.3") (helm-swoop "1.4") (emacs "24"))
+;; Package-Requires: ((ace-jump-mode "2.0") (avy "0.3") (helm-swoop "1.4") (swiper "0.8.0") (emacs "24"))
 
 ;; This program is free software; you can redistribute it and/or modify it under
 ;; the terms of the GNU General Public License as published by the Free Software
@@ -24,13 +24,13 @@
 ;;; Commentary:
 ;;
 ;; `ace-isearch.el' provides a minor mode which combines `isearch',
-;; `ace-jump-mode', `avy', and `helm-swoop'.
+;; `ace-jump-mode', `avy', `helm-swoop' and `swiper'.
 ;;
 ;; The "default" behavior can be summrized as:
 ;;
 ;; L = 1     : `ace-jump-mode' or `avy'
 ;; 1 < L < 6 : `isearch'
-;; L >= 6    : `helm-swoop'
+;; L >= 6    : `helm-swoop' or `swiper'
 ;;
 ;; where L is the input string length during `isearch'.  When L is 1, after a
 ;; few seconds specified by `ace-isearch-jump-delay', `ace-jump-mode' or `avy'
@@ -46,6 +46,7 @@
 ;;; Code:
 
 (require 'helm-swoop)
+(require 'swiper)
 (require 'ace-jump-mode)
 (require 'avy)
 
@@ -226,6 +227,16 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
       (ignore-errors (isearch-exit)))
     (helm-swoop :$query $query)))
 
+(defun ace-isearch-swiper-from-isearch ()
+  "Invoke `swiper' from ace-isearch."
+  (interactive)
+  (let (($query (if isearch-regexp
+                    isearch-string
+                  (regexp-quote isearch-string))))
+    (let (search-nonincremental-instead)
+      (ignore-errors (isearch-exit)))
+    (swiper $query)))
+
 ;;;###autoload
 (defun ace-isearch-jump-during-isearch ()
   "Jump to the one of the current isearch candidates."
@@ -241,7 +252,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
 ;;;###autoload
 (define-minor-mode ace-isearch-mode
-  "Minor-mode which combines isearch, ace-jump-mode, avy, and helm-swoop seamlessly."
+  "Minor-mode which combines isearch, ace-jump-mode, avy, helm-swoop and swiper seamlessly."
   :group      'ace-isearch
   :init-value nil
   :global     nil
