@@ -6,7 +6,7 @@ ace-isearch [![MELPA](http://melpa.org/packages/ace-isearch-badge.svg)](http://m
 [`avy`](https://github.com/abo-abo/avy) and
 [`helm-swoop`](https://github.com/ShingoFukuyama/helm-swoop) or [`swiper`](https://github.com/abo-abo/swiper/).
 
-The "default" behavior can be summrized as:
+The "default" behavior can be summarized as:
 - L = 1     : `ace-jump-mode` or `avy`
 - 1 < L < 6 : `isearch`
 - L >= 6    : `helm-swoop` or `swiper`
@@ -53,7 +53,7 @@ Enable global ace-isearch mode:
 
 ## Customization
 
-#### `ace-isearch-funciton` (Default:`ace-jump-word-mode`)
+#### `ace-isearch-function` (Default:`ace-jump-word-mode`)
 Specify the function name utilized in invoking `ace-jump-mode` or `avy`.
 You should specify `ace-jump-word-mode`, `ace-jump-char-mode`, 
 `avy-goto-word-1`, `avy-goto-subword-1`, or `avy-goto-char`.
@@ -61,7 +61,7 @@ You should specify `ace-jump-word-mode`, `ace-jump-char-mode`,
 ---
 
 #### `ace-isearch-switch-function`
-You can switch the value of `ace-isearch-funciton` interactively.
+You can switch the value of `ace-isearch-function` interactively.
 
 ---
 
@@ -87,8 +87,8 @@ Delay seconds for invoking `ace-isearch-function-from-isearch` during isearch, w
 ---
 
 #### `ace-isearch-input-length` (Default：`6`)
-As default behaviour, when the input string length during isearch exceeds `ace-isearch-input-length`, 
-the function specified by `ace-isearch-funtion-from-isearch` will be invoked.
+As default behaviour, when the input string length during isearch exceeds `ace-isearch-input-length`,
+the function specified by `ace-isearch-function-from-isearch` will be invoked.
 
 ---
 
@@ -97,7 +97,7 @@ Specify the function name invoked when the input string length during isearch ex
 If [swoop](https://github.com/ShingoFukuyama/emacs-swoop) has been installed, swoop can be invoked:
 
 ```el
-(setq ace-isearch-funtion-from-isearch 'swoop-from-isearch)
+(setq ace-isearch-function-from-isearch 'swoop-from-isearch)
 ```
 
 In this case, the following setting would be better.
@@ -110,7 +110,8 @@ In this case, the following setting would be better.
 Of course you can set this variable to `helm-occur-from-isearch`.
 
 ```el
-(setq ace-isearch-funtion-from-isearch 'helm-occur-from-isearch)
+(setq ace-isearch-function-from-isearch 'helm-occur-from-isearch)
+```
 
 You can also set this variable to use `swiper`.
 
@@ -121,7 +122,7 @@ You can also set this variable to use `swiper`.
 ---
 
 #### `ace-isearch-use-function-from-isearch` (Default:`t`)
-If you don't want to invoke `ace-isearch-funtion-from-isearch`, set this variable to `nil`.
+If you don't want to invoke `ace-isearch-function-from-isearch`, set this variable to `nil`.
 
 ---
 
@@ -157,7 +158,7 @@ This helps to reduce many key repeats of `C-s` or `C-r`.
 ---
 
 #### `ace-isearch-pop-mark`
-You can invoke `ace-jump-mode-pop-mark` or `avy-pop-mark` in accordance with the current `ace-isearch-funciton`. With this function, you can jump back to the last location of `ace-jump-mode` or `avy`. 
+You can invoke `ace-jump-mode-pop-mark` or `avy-pop-mark` in accordance with the current `ace-isearch-funciton`. With this function, you can jump back to the last location of `ace-jump-mode` or `avy`.
 
 ## Sample Configuration
 ```el
