@@ -18,10 +18,10 @@ be invoked. Of course you can customize the above behaviour.
 ## Requirements
 
 * Emacs 24 or higher
-* [ace-jump-mode](https://github.com/winterTTr/ace-jump-mode)
-* [avy](https://github.com/abo-abo/avy)
-* [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop)
-* [swiper](https://github.com/abo-abo/swiper/)
+* [ace-jump-mode](https://github.com/winterTTr/ace-jump-mode) or [avy](https://github.com/abo-abo/avy)
+* [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop) or [swiper](https://github.com/abo-abo/swiper/)
+
+You must install this packages manually.
 
 ## Installation
 
