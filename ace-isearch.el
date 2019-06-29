@@ -72,7 +72,9 @@ is longer than or equal to `ace-isearch-input-length'."
 
 
 (if (not (or (require 'helm-swoop nil 'noerror)
-             (require 'helm-occur nil 'noerror)))
+             (if (require 'helm-occur nil 'noerror)
+                 (setq ace-isearch-function-from-isearch 'helm-occur-from-isearch)
+               nil)))
     (if (require 'swiper nil 'noerror)
 	(setq ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch)
       (user-error "You need to install either helm-swoop, helm-occur or swiper.")))
