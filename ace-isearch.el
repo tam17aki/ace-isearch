@@ -71,10 +71,13 @@ is longer than or equal to `ace-isearch-input-length'."
   :group 'ace-isearch)
 
 
-(if (not (require 'helm-swoop nil 'noerror))
+(if (not (or (require 'helm-swoop nil 'noerror)
+             (if (require 'helm-occur nil 'noerror)
+                 (setq ace-isearch-function-from-isearch 'helm-occur-from-isearch)
+               nil)))
     (if (require 'swiper nil 'noerror)
 	(setq ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch)
-	(user-error "You need to install either helm-swoop or swiper.")))
+      (user-error "You need to install either helm-swoop, helm-occur or swiper.")))
 
 (defcustom ace-isearch-lighter " AceI"
   "Lighter of ace-isearch-mode."
