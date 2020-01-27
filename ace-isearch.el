@@ -319,7 +319,11 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (if ace-isearch-mode
       (progn
         (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-function nil t)
-        (ace-isearch--make-ace-jump-or-avy))
+        (if ace-isearch-jump-based-on-one-char
+            (ace-isearch--make-ace-jump-or-avy)
+          (ace-isearch-2--make-ace-jump-or-avy)
+          )
+        )
     (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-function t)))
 
 (defun ace-isearch--turn-on ()
