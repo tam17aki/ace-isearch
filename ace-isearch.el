@@ -188,6 +188,17 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
     (ace-isearch--make-ace-jump-or-avy)
     (message "Function for ace-isearch is set to %s." func)))
 
+(defun ace-isearch-2-switch-function ()
+  (interactive)
+  (let ((func (completing-read
+               (format "Function for ace-isearch-2 (current is %s): "
+                       ace-isearch-2-function)
+               ace-isearch-2--function-list nil t)
+              ))
+    (setq ace-isearch-2-function (intern-soft func))
+    (ace-isearch--make-ace-jump-or-avy)
+    (message "Function for ace-isearch-2 is set to %s." func)))
+
 (defun ace-isearch--fboundp (func flag)
   (declare (indent 1))
   (when flag
@@ -253,6 +264,17 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
           (t
            (error (format "Function name %s for ace-isearch is invalid!"
                           ace-isearch-function))))))
+
+(defun ace-isearch-2--make-ace-jump-or-avy ()
+  (let ((func-str (format "%s" ace-isearch-2-function)))
+    (cond ((member func-str ace-isearch-2--function-list)
+           (cond ((member func-str ace-isearch--ace-jump-2-function-list)
+                  (setq ace-isearch--ace-jump-or-avy 'ace-jump))
+                 ((member func-str ace-isearch--avy-2-function-list)
+                  (setq ace-isearch--ace-jump-or-avy 'avy))))
+          (t
+           (error (format "Function name %s for ace-isearch-2 is invalid!"
+                          ace-isearch-2-function))))))
 
 (defun ace-isearch-helm-swoop-from-isearch ()
   "Invoke `helm-swoop' from ace-isearch."
