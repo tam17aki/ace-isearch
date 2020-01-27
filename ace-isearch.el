@@ -26,7 +26,7 @@
 ;; `ace-isearch.el' provides a minor mode which combines `isearch',
 ;; `ace-jump-mode', `avy', `helm-swoop' and `swiper'.
 ;;
-;; The "default" behavior can be summrized as:
+;; The "default" behavior can be summarized as:
 ;;
 ;; L = 1     : `ace-jump-mode' or `avy'
 ;; 1 < L < 6 : `isearch'
@@ -248,7 +248,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
 ;;;###autoload
 (defun ace-isearch-jump-during-isearch ()
-  "Jump to the one of the current isearch candidates."
+  "Jump to one of the current isearch candidates."
   (interactive)
   (if (< (length isearch-string) ace-isearch-input-length)
       (cond ((eq ace-isearch--ace-jump-or-avy 'ace-jump)
