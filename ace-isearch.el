@@ -26,7 +26,8 @@
 ;; `ace-isearch.el' provides a minor mode which combines `isearch',
 ;; `ace-jump-mode', `avy', `helm-swoop' and `swiper'.
 ;;
-;; The "default" behavior can be summarized as:
+;; The "default" behavior (`ace-isearch-jump-based-on-one-char' = t) can be
+;; summarized as:
 ;;
 ;; L = 1     : `ace-jump-mode' or `avy'
 ;; 1 < L < 6 : `isearch'
@@ -35,6 +36,9 @@
 ;; where L is the input string length during `isearch'.  When L is 1, after a
 ;; few seconds specified by `ace-isearch-jump-delay', `ace-jump-mode' or `avy'
 ;; will be invoked. Of course you can customize the above behaviour.
+;;
+;; If `ace-isearch-jump-based-on-one-char' = nil, L=2 characters are required
+;; to invoke `ace-jump-mode' or `avy' after `ace-isearch-jump-delay'.
 
 ;;; Installation:
 ;;
@@ -51,7 +55,7 @@
   :prefix "ace-isearch-")
 
 (defcustom ace-isearch-function 'ace-jump-word-mode
-  "Function name in invoking ace-jump-mode or avy."
+  "Function name to invoke ace-jump-mode or avy based on 1 character."
   :type '(choice (const :tag "Use ace-jump-word-mode." ace-jump-word-mode)
                  (const :tag "Use ace-jump-char-mode." ace-jump-char-mode)
                  (const :tag "Use avy-goto-word-1." avy-goto-word-1)
@@ -59,9 +63,16 @@
                  (const :tag "Use avy-goto-char." avy-goto-char))
   :group 'ace-isearch)
 
+(defcustom ace-isearch-2-function 'avy-goto-char-2
+  "Function name to invoke ace-jump-mode or avy based on 2 characters."
+  :type '(choice 
+          (const :tag "Use avy-goto-char-2." avy-goto-char-2))
+  :group 'ace-isearch)
+
 (if (not (require 'ace-jump-mode nil 'noerror))
     (if (require 'avy nil 'noerror)
-	(setq ace-isearch-function 'avy-goto-word-1)
+        (setq ace-isearch-function 'avy-goto-word-1
+              ace-isearch-2-function 'avy-goto-char-2)
       (user-error "You need to install either ace-jump-mode or avy.")))
 
 (defcustom ace-isearch-function-from-isearch 'ace-isearch-helm-swoop-from-isearch
@@ -84,6 +95,13 @@ is longer than or equal to `ace-isearch-input-length'."
   :type 'string
   :group 'ace-isearch)
 
+(defcustom ace-isearch-jump-based-on-one-char t
+  "If true, jump for L=1 after delay of `ace-isearch-jump-delay', otherwise 
+require L=2 characters to jump."
+  :type 'boolean
+  :group 'ace-isearch
+  )
+
 (defcustom ace-isearch-jump-delay 0.3
   "Delay seconds for invoking `ace-jump-mode' or `avy' during isearch."
   :type 'number
@@ -104,7 +122,7 @@ during isearch."
   "If `nil', `ace-jump-mode' or `avy' is never invoked.
 
 If `t', it is always invoked if the length of `isearch-string' is
-equal to 1.
+equal to 1 or 2, cf. value of `ace-isearch-jump-based-on-one-char'.
 
 If `printing-char', it is invoked only if you hit a printing
 character to search for as a first input.  This prevents it from
@@ -136,13 +154,23 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (defvar ace-isearch--ace-jump-function-list
   (list "ace-jump-word-mode" "ace-jump-char-mode"))
 
+(defvar ace-isearch--ace-jump-2-function-list
+  (list))
+
 (defvar ace-isearch--avy-function-list
   (list "avy-goto-word-1" "avy-goto-subword-1"
         "avy-goto-word-or-subword-1" "avy-goto-char"))
 
+(defvar ace-isearch--avy-2-function-list
+  (list "avy-goto-char-2"))
+
 (defvar ace-isearch--function-list
   (append ace-isearch--ace-jump-function-list ace-isearch--avy-function-list)
-  "List of functions in jumping.")
+  "List of functions to jumping using 1 character.")
+
+(defvar ace-isearch-2--function-list
+  (append ace-isearch--ace-jump-2-function-list ace-isearch--avy-2-function-list)
+  "List of functions to jumping using 1 character.")
 
 (defvar ace-isearch--ace-jump-or-avy)
 
