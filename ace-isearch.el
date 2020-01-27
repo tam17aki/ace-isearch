@@ -209,42 +209,53 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
     t))
 
 (defun ace-isearch--jumper-function ()
-  (cond ((and (= (length isearch-string) 1)
-              (not (or isearch-regexp
-                       (ace-isearch--isearch-regexp-function)))
-              (ace-isearch--fboundp ace-isearch-function
-                (or (eq ace-isearch-use-jump t)
-                    (and (eq ace-isearch-use-jump 'printing-char)
-                         (eq this-command 'isearch-printing-char))))
-              (sit-for ace-isearch-jump-delay))
-         (isearch-exit)
-         ;; go back to the point where isearch started
-         (goto-char isearch-opoint)
-         (if (or (< (point) (window-start)) (> (point) (window-end)))
-             (message "Notice: Character '%s' could not be found in the \"selected visible window\"." isearch-string))
-         (funcall ace-isearch-function (string-to-char isearch-string))
-         ;; work-around for emacs 25.1
-         (setq isearch--current-buffer (buffer-name (current-buffer))
-               isearch-string ""))
+  (let ((ace-isearch-input-min-length
+         (if ace-isearch-jump-based-on-one-char
+             1
+           2)))
+    (cond (;; using avy/ace-jump since L=1 or L=2 reached (depending on `ace-isearch-jump-based-on-one-char')
+           (and (= (length isearch-string) ace-isearch-input-min-length)
+                (not (or isearch-regexp
+                         (ace-isearch--isearch-regexp-function)))
+                (ace-isearch--fboundp (if ace-isearch-jump-based-on-one-char
+                                          ace-isearch-function ace-isearch-2-function)
+                  (or (eq ace-isearch-use-jump t)
+                      (and (eq ace-isearch-use-jump 'printing-char)
+                           (eq this-command 'isearch-printing-char))))
+                (sit-for ace-isearch-jump-delay))
+           (isearch-exit)
+           ;; go back to the point where isearch started
+           (goto-char isearch-opoint)
+           (if (or (< (point) (window-start)) (> (point) (window-end)))
+               (message "Notice: Character '%s' could not be found in the \"selected visible window\"." isearch-string))
+           (if ace-isearch-jump-based-on-one-char
+               (funcall ace-isearch-function (string-to-char isearch-string))
+             (funcall ace-isearch-2-function (aref isearch-string 0) (aref isearch-string 1))
+             )
+           ;; work-around for emacs 25.1
+           (setq isearch--current-buffer (buffer-name (current-buffer))
+                 isearch-string ""))
 
-        ((and (> (length isearch-string) 1)
-              (< (length isearch-string) ace-isearch-input-length)
-              (not isearch-success)
-              (sit-for ace-isearch-jump-delay))
-         (if (ace-isearch--fboundp ace-isearch-fallback-function
-               ace-isearch-use-fallback-function)
-             (funcall ace-isearch-fallback-function)))
+          ;; switching from isearch to helm/swiper since `ace-isearch-jump-delay' passed without isearch result
+          ((and (> (length isearch-string) ace-isearch-input-min-length)
+                (< (length isearch-string) ace-isearch-input-length)
+                (not isearch-success)
+                (sit-for ace-isearch-jump-delay))
+           (if (ace-isearch--fboundp ace-isearch-fallback-function
+                 ace-isearch-use-fallback-function)
+               (funcall ace-isearch-fallback-function)))
 
-        ((and (>= (length isearch-string) ace-isearch-input-length)
-              (not isearch-regexp)
-              (ace-isearch--fboundp ace-isearch-function-from-isearch
-                ace-isearch-use-function-from-isearch)
-              (sit-for ace-isearch-func-delay))
-         (isearch-exit)
-         (funcall ace-isearch-function-from-isearch)
-         ;; work-around for emacs 25.1
-         (setq isearch--current-buffer (buffer-name (current-buffer))
-               isearch-string ""))))
+          ;; switching from isearch to helm/swiper since `ace-isearch-input-length' reached
+          ((and (>= (length isearch-string) ace-isearch-input-length)
+                (not isearch-regexp)
+                (ace-isearch--fboundp ace-isearch-function-from-isearch
+                  ace-isearch-use-function-from-isearch)
+                (sit-for ace-isearch-func-delay))
+           (isearch-exit)
+           (funcall ace-isearch-function-from-isearch)
+           ;; work-around for emacs 25.1
+           (setq isearch--current-buffer (buffer-name (current-buffer))
+                 isearch-string "")))))
 
 (defun ace-isearch-pop-mark ()
   "Jump back to the last location of `ace-jump-mode' invoked or `avy-push-mark'."
