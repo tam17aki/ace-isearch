@@ -38,7 +38,10 @@
 ;; will be invoked. Of course you can customize the above behaviour.
 ;;
 ;; If `ace-isearch-jump-based-on-one-char' = nil, L=2 characters are required
-;; to invoke `ace-jump-mode' or `avy' after `ace-isearch-jump-delay'.
+;; to invoke `ace-jump-mode' or `avy' after `ace-isearch-jump-delay'. This has
+;; the effect of doing regular `isearch' for L=1 and L=3 to 6, with the ability
+;; to switch to 2-character `avy' or `ace-jump-mode' (not yet supported) once
+;; `ace-isearch-jump-delay' is passed. Much easier to do than to write about :-)
 
 ;;; Installation:
 ;;
