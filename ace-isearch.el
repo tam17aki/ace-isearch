@@ -23,10 +23,10 @@
 
 ;;; Commentary:
 ;;
-;; `ace-isearch.el' provides a minor mode which combines `isearch',
+;; `ace-isearch.el' provides a minor mode that combines `isearch',
 ;; `ace-jump-mode', `avy', `helm-swoop' and `swiper'.
 ;;
-;; The "default" behavior (`ace-isearch-jump-based-on-one-char' = t) can be
+;; The "default" behavior (`ace-isearch-jump-based-on-one-char' t) can be
 ;; summarized as:
 ;;
 ;; L = 1     : `ace-jump-mode' or `avy'
@@ -37,11 +37,11 @@
 ;; few seconds specified by `ace-isearch-jump-delay', `ace-jump-mode' or `avy'
 ;; will be invoked. Of course you can customize the above behaviour.
 ;;
-;; If `ace-isearch-jump-based-on-one-char' = nil, L=2 characters are required
+;; If (`ace-isearch-jump-based-on-one-char' nil), L=2 characters are required
 ;; to invoke `ace-jump-mode' or `avy' after `ace-isearch-jump-delay'. This has
 ;; the effect of doing regular `isearch' for L=1 and L=3 to 6, with the ability
 ;; to switch to 2-character `avy' or `ace-jump-mode' (not yet supported) once
-;; `ace-isearch-jump-delay' is passed. Much easier to do than to write about :-)
+;; `ace-isearch-jump-delay' has passed. Much easier to do than to write about :-)
 
 ;;; Installation:
 ;;
@@ -68,8 +68,9 @@
 
 (defcustom ace-isearch-2-function 'avy-goto-char-2
   "Function name to invoke ace-jump-mode or avy based on 2 characters."
-  :type '(choice 
-          (const :tag "Use avy-goto-char-2." avy-goto-char-2))
+  :type '(choice (const :tag "Use avy-goto-char-2." avy-goto-char-2)
+                 (const :tag "Use avy-goto-char-2-above." avy-goto-char-2-above)
+                 (const :tag "Use avy-goto-char-2-below." avy-goto-char-2-below))
   :group 'ace-isearch)
 
 (if (not (require 'ace-jump-mode nil 'noerror))
@@ -90,7 +91,7 @@ is longer than or equal to `ace-isearch-input-length'."
                  (setq ace-isearch-function-from-isearch 'helm-occur-from-isearch)
                nil)))
     (if (require 'swiper nil 'noerror)
-	(setq ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch)
+        (setq ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch)
       (user-error "You need to install either helm-swoop, helm-occur or swiper.")))
 
 (defcustom ace-isearch-lighter " AceI"
@@ -144,7 +145,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :group 'ace-isearch)
 
 (defcustom ace-isearch-fallback-function 'ace-isearch-helm-swoop-from-isearch
-  "Symbol name of function which is invoked when isearch fails and
+  "Symbol name of function that is invoked when isearch fails and
 `ace-isearch-use-fallback-function' is non-nil."
   :type 'symbol
   :group 'ace-isearch)
@@ -165,15 +166,16 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
         "avy-goto-word-or-subword-1" "avy-goto-char"))
 
 (defvar ace-isearch--avy-2-function-list
-  (list "avy-goto-char-2"))
+  (list "avy-goto-char-2" "avy-goto-char-2-above"
+        "avy-goto-char-2-below"))
 
 (defvar ace-isearch--function-list
   (append ace-isearch--ace-jump-function-list ace-isearch--avy-function-list)
-  "List of functions to jumping using 1 character.")
+  "List of functions for jumping using 1 character.")
 
 (defvar ace-isearch-2--function-list
   (append ace-isearch--ace-jump-2-function-list ace-isearch--avy-2-function-list)
-  "List of functions to jumping using 1 character.")
+  "List of functions for jumping using 2 characters.")
 
 (defvar ace-isearch--ace-jump-or-avy)
 
@@ -199,7 +201,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                ace-isearch-2--function-list nil t)
               ))
     (setq ace-isearch-2-function (intern-soft func))
-    (ace-isearch--make-ace-jump-or-avy)
+    (ace-isearch-2--make-ace-jump-or-avy)
     (message "Function for ace-isearch-2 is set to %s." func)))
 
 (defun ace-isearch--fboundp (func flag)
@@ -325,7 +327,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
 ;;;###autoload
 (define-minor-mode ace-isearch-mode
-  "Minor-mode which combines isearch, ace-jump-mode, avy, helm-swoop and swiper seamlessly."
+  "Minor-mode that combines isearch, ace-jump-mode, avy, helm-swoop and swiper seamlessly."
   :group      'ace-isearch
   :init-value nil
   :global     nil
