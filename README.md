@@ -2,18 +2,24 @@ ace-isearch [![MELPA](http://melpa.org/packages/ace-isearch-badge.svg)](http://m
 ===========
 
 ## Introduction
-`ace-isearch.el` provides a minor mode which combines `isearch`,  [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode) or
+`ace-isearch.el` provides a minor mode that combines `isearch`,  [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode) or
 [`avy`](https://github.com/abo-abo/avy) and
 [`helm-swoop`](https://github.com/ShingoFukuyama/helm-swoop) or [`swiper`](https://github.com/abo-abo/swiper/).
 
-The "default" behavior can be summarized as:
+The "default" behavior (`ace-isearch-jump-based-on-one-char` t) can be summarized as:
 - L = 1     : `ace-jump-mode` or `avy`
 - 1 < L < 6 : `isearch`
 - L >= 6    : `helm-swoop` or `swiper`
 
-where L is the length of input query string during `isearch`.  When L is 1, after a
+where L is the input string length during `isearch`.  When L is 1, after a
 few seconds specified by `ace-isearch-jump-delay`, `ace-jump-mode` or `avy` will
 be invoked. Of course you can customize the above behaviour.
+
+If (`ace-isearch-jump-based-on-one-char` nil), L=2 characters are required to
+invoke `ace-jump-mode` or `avy` after `ace-isearch-jump-delay`. This has the effect
+of doing regular `isearch` for L=1 and L=3 to 6, with the ability to switch to
+2-character `avy` or `ace-jump-mode` (not yet supported) once `ace-isearch-jump-delay`
+has passed. Much easier to do than to write about :-)
 
 ## Requirements
 
@@ -54,25 +60,40 @@ Enable global ace-isearch mode:
 ## Customization
 
 #### `ace-isearch-function` (Default:`ace-jump-word-mode`)
-Specify the function name utilized in invoking `ace-jump-mode` or `avy`.
+Specify the function name utilized in invoking `ace-jump-mode` or `avy`
+when 1-character jumping is enabled (`ace-isearch-jump-based-on-one-char` = t).
 You should specify `ace-jump-word-mode`, `ace-jump-char-mode`, 
 `avy-goto-word-1`, `avy-goto-subword-1`, or `avy-goto-char`.
 
 ---
 
-#### `ace-isearch-switch-function`
-You can switch the value of `ace-isearch-function` interactively.
+#### `ace-isearch-2-function` (Default:`avy-goto-char-2`)
+Specify the function name utilized in invoking `ace-jump-mode` or `avy`
+when 2-character jumping is enabled (`ace-isearch-jump-based-on-one-char` = nil).
+Currently, only `avy` functions `avy-goto-char-2`, `avy-goto-char-2-above` and
+`avy-goto-char-2-below` are available.
+
+---
+
+#### `ace-isearch-switch-function` or `ace-isearch-2-switch-function`
+You can switch the value of `ace-isearch-function` or `ace-isearch-2-function`
+interactively.
 
 ---
 
 #### `ace-isearch-use-jump` (Default:`t`)
-If this variable is set to `nil`, `ace-jump-mode` or `avy` is never invoked.
+If this variable is set to `nil`, `ace-jump-mode` or `avy` are never invoked.
 
 If set to `t`, it is always invoked if the length of `isearch-string` is equal to 1.
 
 If set to `printing-char`, it is invoked only if you hit a printing character to search for as a first input.
 This prevents it from being invoked when repeating a one character search, yanking a character or calling
 `isearch-delete-char` leaving only one character.
+
+---
+
+#### `ace-isearch-jump-based-on-one-char` (Default:`t`)
+If this variable is set to `nil`, 2-character jumping is used, with L=2 invoking `ace-jump-mode` or `avy` instead of L=1.
 
 ---
 
@@ -158,7 +179,7 @@ This helps to reduce many key repeats of `C-s` or `C-r`.
 ---
 
 #### `ace-isearch-pop-mark`
-You can invoke `ace-jump-mode-pop-mark` or `avy-pop-mark` in accordance with the current `ace-isearch-funciton`. With this function, you can jump back to the last location of `ace-jump-mode` or `avy`.
+You can invoke `ace-jump-mode-pop-mark` or `avy-pop-mark` in accordance with the current `ace-isearch-function` or `ace-isearch-2-function`. With this function, you can jump back to the last location of `ace-jump-mode` or `avy`.
 
 ## Sample Configuration
 ```el
