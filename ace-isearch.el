@@ -220,7 +220,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
            (and (= (length isearch-string) ace-isearch-input-min-length)
                 (and (not isearch-regexp)
                      (or (not (ace-isearch--isearch-regexp-function))
-                         search-default-mode))
+                         (not (eq search-default-mode nil))))
                 (ace-isearch--fboundp (if ace-isearch-jump-based-on-one-char
                                           ace-isearch-function ace-isearch-2-function)
                   (or (eq ace-isearch-use-jump t)
