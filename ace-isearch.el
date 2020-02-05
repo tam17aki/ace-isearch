@@ -218,8 +218,9 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
            2)))
     (cond (;; using avy/ace-jump since L=1 or L=2 reached (depending on `ace-isearch-jump-based-on-one-char')
            (and (= (length isearch-string) ace-isearch-input-min-length)
-                (not (or isearch-regexp
-                         (ace-isearch--isearch-regexp-function)))
+                (and (not isearch-regexp)
+                     (or (not (ace-isearch--isearch-regexp-function))
+                         search-default-mode))
                 (ace-isearch--fboundp (if ace-isearch-jump-based-on-one-char
                                           ace-isearch-function ace-isearch-2-function)
                   (or (eq ace-isearch-use-jump t)
