@@ -103,8 +103,7 @@ is longer than or equal to `ace-isearch-input-length'."
   "If true, jump for L=1 after delay of `ace-isearch-jump-delay', otherwise 
 require L=2 characters to jump."
   :type 'boolean
-  :group 'ace-isearch
-  )
+  :group 'ace-isearch)
 
 (defcustom ace-isearch-jump-delay 0.3
   "Delay seconds for invoking `ace-jump-mode' or `avy' during isearch."
@@ -198,8 +197,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (let ((func (completing-read
                (format "Function for ace-isearch-2 (current is %s): "
                        ace-isearch-2-function)
-               ace-isearch-2--function-list nil t)
-              ))
+               ace-isearch-2--function-list nil t)))
     (setq ace-isearch-2-function (intern-soft func))
     (ace-isearch-2--make-ace-jump-or-avy)
     (message "Function for ace-isearch-2 is set to %s." func)))
@@ -337,9 +335,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
         (add-hook 'isearch-update-post-hook 'ace-isearch--jumper-function nil t)
         (if ace-isearch-jump-based-on-one-char
             (ace-isearch--make-ace-jump-or-avy)
-          (ace-isearch-2--make-ace-jump-or-avy)
-          )
-        )
+          (ace-isearch-2--make-ace-jump-or-avy)))
     (remove-hook 'isearch-update-post-hook 'ace-isearch--jumper-function t)))
 
 (defun ace-isearch--turn-on ()
