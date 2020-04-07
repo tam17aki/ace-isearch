@@ -100,7 +100,7 @@ is longer than or equal to `ace-isearch-input-length'."
   :group 'ace-isearch)
 
 (defcustom ace-isearch-jump-based-on-one-char t
-  "If true, jump for L=1 after delay of `ace-isearch-jump-delay', otherwise 
+  "If true, jump for L=1 after delay of `ace-isearch-jump-delay', otherwise
 require L=2 characters to jump."
   :type 'boolean
   :group 'ace-isearch)
@@ -299,7 +299,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                   (regexp-quote isearch-string))))
     (let (search-nonincremental-instead)
       (ignore-errors (isearch-exit)))
-    (helm-swoop :$query $query)))
+    (helm-swoop :query $query)))
 
 (defun ace-isearch-swiper-from-isearch ()
   "Invoke `swiper' from ace-isearch."
