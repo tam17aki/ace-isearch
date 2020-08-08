@@ -221,7 +221,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                 (and (or (not (ace-isearch--isearch-regexp-function))
                          (not (eq search-default-mode nil))))
                 (ace-isearch--fboundp (if ace-isearch-jump-based-on-one-char
-                                          ace-isearch-function ace-isearch-2-function)
+                                         ace-isearch-function ace-isearch-2-function)
                   (or (eq ace-isearch-use-jump t)
                       (and (eq ace-isearch-use-jump 'printing-char)
                            (eq this-command 'isearch-printing-char))))
@@ -253,7 +253,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                 (ace-isearch--fboundp ace-isearch-function-from-isearch
                   ace-isearch-use-function-from-isearch)
                 (sit-for ace-isearch-func-delay))
-           (isearch-exit)
+           (isearch-done t t)
            (funcall ace-isearch-function-from-isearch)
            ;; work-around for emacs 25.1
            (setq isearch--current-buffer (buffer-name (current-buffer))
