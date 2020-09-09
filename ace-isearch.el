@@ -259,6 +259,9 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 
           ;; switching from isearch to helm/swiper since `ace-isearch-input-length' reached
           ((and (>= (length isearch-string) ace-isearch-input-length)
+                (if ace-isearch-on-evil-mode
+                    t
+                  (not isearch-regexp))
                 (ace-isearch--fboundp ace-isearch-function-from-isearch
                   ace-isearch-use-function-from-isearch)
                 (sit-for ace-isearch-func-delay))
