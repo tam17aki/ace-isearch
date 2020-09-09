@@ -234,7 +234,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                       (and (eq ace-isearch-use-jump 'printing-char)
                            (eq this-command 'isearch-printing-char))))
                 (sit-for ace-isearch-jump-delay))
-           (isearch-done nil t)
+           (isearch-done t t)
            ;; go back to the point where isearch started
            (goto-char isearch-opoint)
            (if (or (< (point) (window-start)) (> (point) (window-end)))
