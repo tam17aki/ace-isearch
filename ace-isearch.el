@@ -4,7 +4,6 @@
 
 ;; Author: Akira Tamamori
 ;; URL: https://github.com/tam17aki/ace-isearch
-;; Package-Version: 20200808.1445
 ;; Version: 0.1.6
 ;; Created: Sep 25 2014
 ;; Package-Requires: ((emacs "24"))
@@ -304,8 +303,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (defun ace-isearch-helm-swoop-from-isearch ()
   "Invoke `helm-swoop' from ace-isearch."
   (interactive)
-  (let (
-        ($query (if isearch-regexp
+  (let (($query (if isearch-regexp
                     isearch-string
                   (regexp-quote isearch-string))))
     (isearch-update-ring isearch-string isearch-regexp)
