@@ -4,6 +4,7 @@
 
 ;; Author: Akira Tamamori
 ;; URL: https://github.com/tam17aki/ace-isearch
+;; Package-Version: 20200808.1445
 ;; Version: 0.1.6
 ;; Created: Sep 25 2014
 ;; Package-Requires: ((emacs "24"))
@@ -154,6 +155,11 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   :type 'boolean
   :group 'ace-isearch)
 
+(defcustom ace-isearch-on-evil-mode nil
+  "If non nil, ace-isearch-mode can be used on Evil mode."
+  :type 'boolean
+  :group 'ace-isearch)
+
 (defvar ace-isearch--ace-jump-function-list
   (list "ace-jump-word-mode" "ace-jump-char-mode"))
 
@@ -218,15 +224,18 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
            2)))
     (cond (;; using avy/ace-jump since L=1 or L=2 reached (depending on `ace-isearch-jump-based-on-one-char')
            (and (= (length isearch-string) ace-isearch-input-min-length)
-                (and (or (not (ace-isearch--isearch-regexp-function))
+                (and (if ace-isearch-on-evil-mode
+                         t
+                       (not isearch-regexp))
+                     (or (not (ace-isearch--isearch-regexp-function))
                          (not (eq search-default-mode nil))))
                 (ace-isearch--fboundp (if ace-isearch-jump-based-on-one-char
-                                         ace-isearch-function ace-isearch-2-function)
+                                          ace-isearch-function ace-isearch-2-function)
                   (or (eq ace-isearch-use-jump t)
                       (and (eq ace-isearch-use-jump 'printing-char)
                            (eq this-command 'isearch-printing-char))))
                 (sit-for ace-isearch-jump-delay))
-           (isearch-done t t)
+           (isearch-done nil t)
            ;; go back to the point where isearch started
            (goto-char isearch-opoint)
            (if (or (< (point) (window-start)) (> (point) (window-end)))
@@ -292,9 +301,11 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (defun ace-isearch-helm-swoop-from-isearch ()
   "Invoke `helm-swoop' from ace-isearch."
   (interactive)
-  (let (($query (if isearch-regexp
+  (let (
+        ($query (if isearch-regexp
                     isearch-string
                   (regexp-quote isearch-string))))
+    (isearch-update-ring isearch-string isearch-regexp)
     (let (search-nonincremental-instead)
       (ignore-errors (isearch-done t t)))
     (helm-swoop :query $query)))
@@ -305,6 +316,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
   (let (($query (if isearch-regexp
                     isearch-string
                   (regexp-quote isearch-string))))
+    (isearch-update-ring isearch-string isearch-regexp)
     (let (search-nonincremental-instead)
       (ignore-errors (isearch-done t t)))
     (swiper $query)))
