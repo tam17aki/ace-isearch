@@ -105,7 +105,6 @@ is longer than or equal to `ace-isearch-input-length'."
   :type 'symbol
   :group 'ace-isearch)
 
-
 (if (not (or (require 'helm-swoop nil 'noerror)
              (if (require 'helm-occur nil 'noerror)
                  (setq ace-isearch-function-from-isearch 'helm-occur-from-isearch)
@@ -261,8 +260,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                (message "Notice: Character '%s' could not be found in the \"selected visible window\"." isearch-string))
            (if ace-isearch-jump-based-on-one-char
                (funcall ace-isearch-function (string-to-char isearch-string))
-             (funcall ace-isearch-2-function (aref isearch-string 0) (aref isearch-string 1))
-             )
+             (funcall ace-isearch-2-function (aref isearch-string 0) (aref isearch-string 1)))
            ;; work-around for emacs 25.1
            (setq isearch--current-buffer (buffer-name (current-buffer))
                  isearch-string ""))
