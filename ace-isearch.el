@@ -52,6 +52,26 @@
 
 ;;; Code:
 
+;; obsolete functions and variables
+(define-obsolete-function-alias 'ace-isearch-switch-submode
+  'ace-isearch-switch-function "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-submode
+  'ace-isearch-function "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-input-idle-jump-delay
+  'ace-isearch-jump-delay "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-input-idle-func-delay
+  'ace-isearch-func-delay "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-use-ace-jump
+  'ace-isearch-use-jump "0.1.3")
+
+;; suppress byte-compile warnings
+(declare-function ace-jump-mode-pop-mark "ace-jump-mode")
+(declare-function ace-jump-do "ace-jump-mode")
+(declare-function avy-pop-mark "avy")
+(declare-function avy-isearch "avy")
+(declare-function helm-swoop "helm-swoop")
+(declare-function swiper "swiper")
+
 (defgroup ace-isearch nil
   "Group of ace-isearch."
   :group 'convenience
@@ -358,18 +378,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (define-globalized-minor-mode global-ace-isearch-mode
   ace-isearch-mode ace-isearch--turn-on
   :group 'ace-isearch)
-
-;; obsolete functions and variables
-(define-obsolete-function-alias 'ace-isearch-switch-submode
-  'ace-isearch-switch-function "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-submode
-  'ace-isearch-function "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-input-idle-jump-delay
-  'ace-isearch-jump-delay "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-input-idle-func-delay
-  'ace-isearch-func-delay "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-use-ace-jump
-  'ace-isearch-use-jump "0.1.3")
 
 (provide 'ace-isearch)
 ;;; ace-isearch.el ends here
