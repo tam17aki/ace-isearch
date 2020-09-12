@@ -4,7 +4,7 @@
 
 ;; Author: Akira Tamamori
 ;; URL: https://github.com/tam17aki/ace-isearch
-;; Version: 0.1.6
+;; Version: 1.0
 ;; Created: Sep 25 2014
 ;; Package-Requires: ((emacs "24"))
 
