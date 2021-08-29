@@ -107,7 +107,7 @@ is longer than or equal to `ace-isearch-input-length'."
 
 (if (not (or (require 'helm-swoop nil 'noerror)
              (if (require 'helm-occur nil 'noerror)
-                 (setq ace-isearch-function-from-isearch 'helm-occur-from-isearch)
+                 (setq ace-isearch-function-from-isearch 'ace-isearch-helm-occur-from-isearch)
                nil)))
     (if (require 'swiper nil 'noerror)
         (setq ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch)
@@ -253,7 +253,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                       (and (eq ace-isearch-use-jump 'printing-char)
                            (eq this-command 'isearch-printing-char))))
                 (sit-for ace-isearch-jump-delay))
-           (isearch-done nil t)
+           (isearch-done t t)
            ;; go back to the point where isearch started
            (goto-char isearch-opoint)
            (if (or (< (point) (window-start)) (> (point) (window-end)))
@@ -317,6 +317,18 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
           (t
            (error (format "Function name %s for ace-isearch-2 is invalid!"
                           ace-isearch-2-function))))))
+
+(defun ace-isearch-helm-occur-from-isearch ()
+  "Invoke `helm-swoop' from ace-isearch."
+  (interactive)
+  (let ((bufs (list (current-buffer)))
+        ($query (if isearch-regexp
+                    isearch-string
+                  (regexp-quote isearch-string))))
+    (isearch-update-ring isearch-string isearch-regexp)
+    (let (search-nonincremental-instead)
+      (ignore-errors (isearch-done t t)))
+    (helm-multi-occur-1 bufs $query)))
 
 (defun ace-isearch-helm-swoop-from-isearch ()
   "Invoke `helm-swoop' from ace-isearch."
