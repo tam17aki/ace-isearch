@@ -4,7 +4,7 @@
 
 ;; Author: Akira Tamamori
 ;; URL: https://github.com/tam17aki/ace-isearch
-;; Version: 0.1.6
+;; Version: 1.0
 ;; Created: Sep 25 2014
 ;; Package-Requires: ((emacs "24"))
 
@@ -52,6 +52,26 @@
 
 ;;; Code:
 
+;; obsolete functions and variables
+(define-obsolete-function-alias 'ace-isearch-switch-submode
+  'ace-isearch-switch-function "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-submode
+  'ace-isearch-function "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-input-idle-jump-delay
+  'ace-isearch-jump-delay "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-input-idle-func-delay
+  'ace-isearch-func-delay "0.1.3")
+(define-obsolete-variable-alias 'ace-isearch-use-ace-jump
+  'ace-isearch-use-jump "0.1.3")
+
+;; suppress byte-compile warnings
+(declare-function ace-jump-mode-pop-mark "ace-jump-mode")
+(declare-function ace-jump-do "ace-jump-mode")
+(declare-function avy-pop-mark "avy")
+(declare-function avy-isearch "avy")
+(declare-function helm-swoop "helm-swoop")
+(declare-function swiper "swiper")
+
 (defgroup ace-isearch nil
   "Group of ace-isearch."
   :group 'convenience
@@ -84,7 +104,6 @@
 is longer than or equal to `ace-isearch-input-length'."
   :type 'symbol
   :group 'ace-isearch)
-
 
 (if (not (or (require 'helm-swoop nil 'noerror)
              (if (require 'helm-occur nil 'noerror)
@@ -241,8 +260,7 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
                (message "Notice: Character '%s' could not be found in the \"selected visible window\"." isearch-string))
            (if ace-isearch-jump-based-on-one-char
                (funcall ace-isearch-function (string-to-char isearch-string))
-             (funcall ace-isearch-2-function (aref isearch-string 0) (aref isearch-string 1))
-             )
+             (funcall ace-isearch-2-function (aref isearch-string 0) (aref isearch-string 1)))
            ;; work-around for emacs 25.1
            (setq isearch--current-buffer (buffer-name (current-buffer))
                  isearch-string ""))
@@ -358,18 +376,6 @@ of `isearch-string' is longer than or equal to `ace-isearch-input-length'."
 (define-globalized-minor-mode global-ace-isearch-mode
   ace-isearch-mode ace-isearch--turn-on
   :group 'ace-isearch)
-
-;; obsolete functions and variables
-(define-obsolete-function-alias 'ace-isearch-switch-submode
-  'ace-isearch-switch-function "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-submode
-  'ace-isearch-function "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-input-idle-jump-delay
-  'ace-isearch-jump-delay "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-input-idle-func-delay
-  'ace-isearch-func-delay "0.1.3")
-(define-obsolete-variable-alias 'ace-isearch-use-ace-jump
-  'ace-isearch-use-jump "0.1.3")
 
 (provide 'ace-isearch)
 ;;; ace-isearch.el ends here

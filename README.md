@@ -181,6 +181,12 @@ This helps to reduce many key repeats of `C-s` or `C-r`.
 #### `ace-isearch-pop-mark`
 You can invoke `ace-jump-mode-pop-mark` or `avy-pop-mark` in accordance with the current `ace-isearch-function` or `ace-isearch-2-function`. With this function, you can jump back to the last location of `ace-jump-mode` or `avy`.
 
+---
+
+#### `ace-isearch-on-evil-mode`  (Default:`nil`)
+If this variable is set to non-nil, you can invoke `ace-jump-mode` or `avy` even on `evil-mode`.
+
+
 ## Sample Configuration
 ```el
 (require 'ace-isearch)
