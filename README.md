@@ -4,12 +4,12 @@ ace-isearch [![MELPA](http://melpa.org/packages/ace-isearch-badge.svg)](http://m
 ## Introduction
 `ace-isearch.el` provides a minor mode that combines `isearch`,  [`ace-jump-mode`](https://github.com/winterTTr/ace-jump-mode) or
 [`avy`](https://github.com/abo-abo/avy) and
-[`helm-swoop`](https://github.com/ShingoFukuyama/helm-swoop) or [`swiper`](https://github.com/abo-abo/swiper/).
+[`helm-swoop`](https://github.com/ShingoFukuyama/helm-swoop), [`swiper`](https://github.com/abo-abo/swiper/) or [`consult-line`](https://github.com/minad/consult).
 
 The "default" behavior (`ace-isearch-jump-based-on-one-char` t) can be summarized as:
 - L = 1     : `ace-jump-mode` or `avy`
 - 1 < L < 6 : `isearch`
-- L >= 6    : `helm-swoop` or `swiper`
+- L >= 6    : `helm-swoop`, `swiper` or `consult-line`
 
 where L is the input string length during `isearch`.  When L is 1, after a
 few seconds specified by `ace-isearch-jump-delay`, `ace-jump-mode` or `avy` will
@@ -25,7 +25,7 @@ has passed. Much easier to do than to write about :-)
 
 * Emacs 24 or higher
 * [ace-jump-mode](https://github.com/winterTTr/ace-jump-mode) or [avy](https://github.com/abo-abo/avy)
-* [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop) or [swiper](https://github.com/abo-abo/swiper/)
+* [helm-swoop](https://github.com/ShingoFukuyama/helm-swoop), [swiper](https://github.com/abo-abo/swiper/) or [consult](https://github.com/minad/consult)
 
 You must install these packages manually.
 
@@ -140,10 +140,23 @@ You can also set this variable to use `swiper`.
 (setq ace-isearch-function-from-isearch 'ace-isearch-swiper-from-isearch)
 ```
 
+Or you can set it to use `consult-line`.
+
+```el
+(setq ace-isearch-function-from-isearch 'ace-isearch-consult-line-from-isearch)
+```
+
 ---
 
 #### `ace-isearch-use-function-from-isearch` (Default:`t`)
 If you don't want to invoke `ace-isearch-function-from-isearch`, set this variable to `nil`.
+
+---
+
+#### `ace-isearch-disable-isearch-function-from-isearch-message` (Default:`nil`)
+In the event that none of the supported libraries are available for `ace-isearch-function-from-isearch`, a message will issue explaining the situtation.
+
+In order to disable the message, set this variable to `t`.
 
 ---
 
